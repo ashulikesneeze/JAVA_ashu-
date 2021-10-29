@@ -6,7 +6,7 @@ public class VariableEx2 {
 		// TODO Auto-generated method stub
 
 	int num1 = 0;//가능
-	//int 1num =0;//error due to 숫자시작
+	//int num1 =0;//error due to 숫자시작
 	//int num1 = 1;//error due to duplication
 	//int_; //error due to solo use of _
 	
