@@ -17,7 +17,7 @@ public class ScannerEx2 {
 		int num2 = scan.nextInt();
 		System.out.println("입력된 정수는 " + num2 + " 입니다.");
 		
-		scan.close();
+		
 		
 		int total = num1 + num2;
 		System.out.println("합은 " + total + " 입니다.");
