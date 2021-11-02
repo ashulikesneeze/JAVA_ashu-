@@ -15,7 +15,11 @@ Eclipse
 
 github fetch -> eclipse (file -> open project ->directory)
 
+* 연동하기: Github screen에서 code copy 
 
+  ​                  Github Desktop: file -> clone repository -> URL paste
+
+  ​                  Eclipse: file -> directory 
 
 # clone(클론)
 
