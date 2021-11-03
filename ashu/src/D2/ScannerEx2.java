@@ -25,7 +25,7 @@ public class ScannerEx2 {
 	
 		int num3, num4;
 		System.out.print("두 정수를 입력하세요(예:1 2) : ");
-		Scanner Scan = new Scanner(System.in);
+	
 		
 		num3 = scan.nextInt();
 		num4 = scan.nextInt();
