@@ -20,7 +20,7 @@ public class ClassEx3 {
 class HighScoolStudent{
 	String schoolName, name;
 	int grade, classNum, num;
-	
+	 
 	public HighScoolStudent() {
 		//schoolName = "고등학교";	name = "";	grade = 1; classNum = 1; num = 1;
 		this("고등학교", "", 1,1,1);

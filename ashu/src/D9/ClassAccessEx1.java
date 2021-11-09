@@ -22,6 +22,8 @@ class A{
 		return num1;
 	}
 	public void setNum1(int num1) {
+		//멤버변수: usually private, 파랑색 this. 
+		//매개변수: 갈색, 남이 알려주는 정보 출력 
 		this.num1 = num1;
 	}
 	
