@@ -1,6 +1,6 @@
 package D13;
 
-public class ExaTestEx1 {
+public class ExaExbcompareTest {
 
 	public static void main(String[] args) {
 		/* 도형을 그리는 기능을 Shape에 추상 메소드로 만든 경우와 
@@ -32,7 +32,7 @@ public class ExaTestEx1 {
 			//tmp.print();
 			//타원인 경우 형변환이 안되서 에러 발생
 			//((ExbRect)tmp).print();
-		
+			//so, you have to type change in usage of 'instanceof'!! 
 			if(tmp != null) {
 				if(tmp instanceof ExbRect) {
 					((ExbRect)tmp).print();
