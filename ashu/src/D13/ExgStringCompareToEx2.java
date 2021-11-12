@@ -6,7 +6,7 @@ public class ExgStringCompareToEx2 {
 		// 문자열 4개를 한곳에서 관리할 수 있게 배열을 만드세요.
 		String [] list = new String [4];
 		// 배열에 b d a c 순으로 저장하세요
-		list[0] = "b"; list[1] = "d"; list[2] = "a"; list[2] = "c";
+		list[0] = "b"; list[1] = "d"; list[2] = "a"; list[3] = "c";
 		// 반복문과 compareTo를 이용하여 사전순으로 정렬해보세요.
 		//int []arr = new int[4];
 		//arr를 list로 바꾼 후,int 를 String으로, compareTo 와 > 0을 추가하였음 
