@@ -21,7 +21,7 @@ public class ExgStringEx1 {
 		
 		System.out.println("str1과 str2의 문자열이 같다?" + str1.equals(str2));
 		System.out.println("str1과 str3의 문자열이 같다?" + str1.equals(str3));
-		System.out.println("str2과 str3의 문자열이 같다?" + str1.equals(str3));
+		System.out.println("str2과 str3의 문자열이 같다?" + str2.equals(str3));
 	}
 
 }

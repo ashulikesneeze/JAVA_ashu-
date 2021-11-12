@@ -9,7 +9,7 @@ public class ExgStringIndexofEx1 {
 		 * 없으면 -1을 알려줌 
 		 * int indexOf(int ch, int from) : from 번지부터 검색하여 
 		 * ch가 몇번지에 있는지 알려주는 메소드로 없으면 -1을 알려줌 
-		 * int indexOf(String sth, String from) : from 번지부터 검색하여
+		 * int indexOf(String str, String from) : from 번지부터 검색하여
 		 * str이 몇번지에서 시작하는지 알려주는 메소드로 없으면 -1을 알려줌 
 		 * int lastIndexOf(int ch) : 마지막부터 검색해서 ch가 몇번지에 있는지 
 		 * 알려주는 메소드로 없으면 -1
