@@ -49,6 +49,7 @@ public class LottoEx1 {
 		return arr;
 	}
 	public static boolean containsArray(int []arr, int num, int n) {
+		//위에서 보낸 랜덤 숫자를 확인 후 참, 거짓을 위로 보내줌 
 		//배열의 길이보다 검사하는 갯수가 많으면 검사 갯수를 배열의 길이로,
 		//아니면 원래 검사 개수로 변경
 		n = arr.length < n ? arr.length : n;
