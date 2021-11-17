@@ -2,7 +2,7 @@ package D9;
 
 import java.util.Scanner;
 
-public class ClassEx1 {
+public class ClassCar {
 
 	public static void main(String[] args) {
 		Car car1 = new Car(4,"현대","소형");

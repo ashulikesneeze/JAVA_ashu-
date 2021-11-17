@@ -1,6 +1,6 @@
 package D9;
 
-public class ClassEx2 {
+public class ClassPoint {
 
 	public static void main(String[] args) {
 		Point2D pt = new Point2D();
