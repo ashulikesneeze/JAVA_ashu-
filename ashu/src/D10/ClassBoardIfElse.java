@@ -2,7 +2,7 @@ package D10;
 
 import java.util.Scanner;
 
-public class ClassBoardEx1 {
+public class ClassBoardIfElse {
 
 	public static void main(String[] args) {
 		/* 게시글을 관리하기 위한 Board 클래스를 생성하고, 객체를 생성하여 테스트

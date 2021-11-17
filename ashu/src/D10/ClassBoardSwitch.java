@@ -2,7 +2,7 @@ package D10;
 
 import java.util.Scanner;
 
-public class ClassBoardEx2 {
+public class ClassBoardSwitch {
 
 	public static void main(String[] args) {
 		//게시글 관리 프로그램
