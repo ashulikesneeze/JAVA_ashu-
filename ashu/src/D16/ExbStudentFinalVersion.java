@@ -1,8 +1,10 @@
-package D17;
+package D16;
 
 import java.util.*;
 
-public class ExaList1 {
+import D17.ExbStudent;
+
+public class ExbStudentFinalVersion {
 	public static void main(String[] args) {
 		/* 학생 성적을 관리하는 프로그램을 만들어보세요.
 		 * 메뉴
