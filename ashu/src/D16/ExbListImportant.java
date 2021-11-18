@@ -20,8 +20,11 @@ public class ExbListImportant {
 		
 		while(next == 'y' || next =='Y') {
 			//방법1 : 첫번째 inputStudent 메소드 이용
-			ExbStudentImportant std = inputStudent(scan);
-			stdList.add(std);
+			/*ExbStudentImportant std = inputStudent(scan);
+			stdList.add(std);*/
+			
+			//방법2 : 두번째 inputStudent 메소드 이용
+			inputStudent(scan, stdList);
 			
 			System.out.print("학생 정보를 더 입력하겠습니까? ");
 			next = scan.next().charAt(0); 
@@ -62,6 +65,7 @@ public class ExbListImportant {
 			int math = scan.nextInt();
 			
 			//ExbStudent std = new Ex 타이핑 후 ctr + space 자동 완성 기능 
+			//처음 객체 생성 : ExbStudentImportant 여기 
 			ExbStudentImportant std = new ExbStudentImportant(grade, classNum, num, name, kor, eng, math);
 			return std; 
 	}

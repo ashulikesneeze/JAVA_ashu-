@@ -3,6 +3,7 @@ package D16;
 import java.util.*;
 
 public class ExbListEx3 {
+
 	public static void main(String[] args) {
 		/* 학생 성적을 관리하는 프로그램을 만들어보세요.
 		 * 메뉴
@@ -125,3 +126,4 @@ public class ExbListEx3 {
 		return stdList.remove(std);
 	}
 }
+
