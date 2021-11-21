@@ -1,14 +1,14 @@
 package D17;
 
-public class ExbScore {
+public class AScore {
 	private String subjectTitle;
 	private int grade;
 	private int semester;
 	private int point;
 	
-	public ExbScore(String subjectTitle, int grade, int semester, int point) {
+	public AScore(String subjectTitle, int grade, int semester, int point) {
 		this.subjectTitle = subjectTitle;
-		this.point = point;
+		this.setPoint(point);
 		this.grade = grade;
 		this.semester = semester;
 	}
@@ -21,7 +21,7 @@ public class ExbScore {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ExbScore other = (ExbScore) obj;
+		AScore other = (AScore) obj;
 		if (grade != other.grade)
 			return false;
 		if (semester != other.semester)
@@ -56,6 +56,14 @@ public class ExbScore {
 
 	public void setSemester(int semester) {
 		this.semester = semester;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 }

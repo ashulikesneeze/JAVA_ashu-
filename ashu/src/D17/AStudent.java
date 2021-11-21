@@ -2,12 +2,12 @@ package D17;
 
 import java.util.ArrayList;
 
-public class ExbStudent {
+public class AStudent {
 	private int grade, classNum, num;
 	private String name;
-	private ArrayList<ExbScore> score;
+	private ArrayList<AScore> score;
 	
-	public ExbStudent(int grade, int classNum, int num, String name) {
+	public AStudent(int grade, int classNum, int num, String name) {
 		super();
 		this.grade = grade;
 		this.classNum = classNum;
@@ -23,7 +23,7 @@ public class ExbStudent {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ExbStudent other = (ExbStudent) obj;
+		AStudent other = (AStudent) obj;
 		if (classNum != other.classNum)
 			return false;
 		if (grade != other.grade)
@@ -73,5 +73,13 @@ public class ExbStudent {
 	@Override
 	public String toString() {
 		return "ExbStudent [grade=" + grade + ", classNum=" + classNum + ", num=" + num + ", name=" + name + "]";
+	}
+
+	public ArrayList<AScore> getScore() {
+		return score;
+	}
+
+	public void setScore(ArrayList<AScore> score) {
+		this.score = score;
 	}
 }

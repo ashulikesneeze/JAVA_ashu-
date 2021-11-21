@@ -2,7 +2,7 @@ package D16;
 
 import java.util.*;
 
-import D17.ExbStudent;
+import D17.AStudent;
 
 public class ExbStudentInfoManagement {
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class ExbStudentInfoManagement {
 		ArrayList<Integer> mathList = new ArrayList<Integer>();
 		
 		//다른과목들도 같이 다룰 수 있는 클래스 
-		ArrayList<ExbStudent> stdList = new ArrayList<ExbStudent>();
+		ArrayList<AStudent> stdList = new ArrayList<AStudent>();
 		Scanner scan = new Scanner(System.in);
 		int menu;
 		
@@ -68,7 +68,7 @@ public class ExbStudentInfoManagement {
 	}
 	
 	//Scanner를 이용해 학생정보와 성적을 입력받아 입력받은 학생의 정보를 알려주는 메소드
-	public static ExbStudent inputStudent(Scanner scan) {
+	public static AStudent inputStudent(Scanner scan) {
 		System.out.println("학생 정보를 입력하세요.");
 		System.out.print("학년 : ");
 		int grade = scan.nextInt();
@@ -89,24 +89,24 @@ public class ExbStudentInfoManagement {
 		
 		//처음 객체생성하는 곳
 		//ExbStudent std = new 타이핑 후 ctr + space 자동완성 기능 
-		ExbStudent std 
-			= new ExbStudent(grade, classNum, num, name);
+		AStudent std 
+			= new AStudent(grade, classNum, num, name);
 		return std;
 	}
 	
 	//Scanner를 이용해 학생정보를 입력받아, 그 정보들을 주어진 리스트에 넣어주는 메소드
 	//Overloading inputStudent(Scan)
-	public static void inputStudent(Scanner scan, ArrayList<ExbStudent> stdList) {
-		ExbStudent std = inputStudent(scan);
+	public static void inputStudent(Scanner scan, ArrayList<AStudent> stdList) {
+		AStudent std = inputStudent(scan);
 		stdList.add(std);
 	}
 	
 	//학생 리스트가 주어지면 주어진 학생 정보들을 출력하는 메소드 
 	//리스트에서 하나씩 꺼내서 tmp에 저장 
-	public static void printStudentList(ArrayList<ExbStudent> stdList) {
-		Iterator<ExbStudent> it = stdList.iterator();
+	public static void printStudentList(ArrayList<AStudent> stdList) {
+		Iterator<AStudent> it = stdList.iterator();
 		while(it.hasNext()) {
-			ExbStudent tmp = it.next();
+			AStudent tmp = it.next();
 			System.out.println(tmp);
 		}
 	}
@@ -119,7 +119,7 @@ public class ExbStudentInfoManagement {
 		System.out.println("5. 프로그램 종료");
 		System.out.print("메뉴를 선택하세요 : ");
 	}
-	public static boolean deleteStudent(ArrayList<ExbStudent> stdList, Scanner scan) {
+	public static boolean deleteStudent(ArrayList<AStudent> stdList, Scanner scan) {
 		//삭제할 학생 정보를 입력
 		System.out.println("삭제할 학생 정보를 입력하세요");
 		System.out.print("학년 : ");
@@ -129,8 +129,8 @@ public class ExbStudentInfoManagement {
 		System.out.print("번호 : ");
 		int num = scan.nextInt();
 		
-		ExbStudent std 
-			= new ExbStudent(grade, classNum, num, "");
+		AStudent std 
+			= new AStudent(grade, classNum, num, "");
 		
 		return stdList.remove(std);
 	}
@@ -141,7 +141,7 @@ public class ExbStudentInfoManagement {
 	 * 리턴타입 : 수정 됐는지 안됐는지 => boolean
 	 * 메소드명 : modifyStudent
 	 * */
-	public static boolean modifyStudent(Scanner scan, ArrayList<ExbStudent> stdList) {
+	public static boolean modifyStudent(Scanner scan, ArrayList<AStudent> stdList) {
 		//특정 학생 정보 입력
 		System.out.println("학생 정보를 입력하세요.");
 		System.out.print("학년 : ");
@@ -153,7 +153,7 @@ public class ExbStudentInfoManagement {
 		
 		//특정 학생 정보가 있으면 이름, 성적을 입력 받음
 		//특정 학생 정보의 번지가 0이상이면 이름, 성적을 입력 받음
-		ExbStudent std = new ExbStudent(grade, classNum, num, "");
+		AStudent std = new AStudent(grade, classNum, num, "");
 		int index = stdList.indexOf(std);
 		if(index >= 0) {
 			System.out.print("이름 : ");
@@ -181,7 +181,7 @@ public class ExbStudentInfoManagement {
 			//방법2. set()
 			//입력받은 학생 정보와 이름, 성적을 하나의 객체로 만들어서
 			//리스트에 수정하는 방법
-			std = new ExbStudent(grade, classNum, num, name);
+			std = new AStudent(grade, classNum, num, name);
 			stdList.set(index, std);
 			return true;
 		}
