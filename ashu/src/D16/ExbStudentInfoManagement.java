@@ -90,7 +90,7 @@ public class ExbStudentInfoManagement {
 		//처음 객체생성하는 곳
 		//ExbStudent std = new 타이핑 후 ctr + space 자동완성 기능 
 		AStudent std 
-			= new AStudent(grade, classNum, num, name);
+			= new AStudent(grade, classNum, num, name, null);
 		return std;
 	}
 	
@@ -130,7 +130,7 @@ public class ExbStudentInfoManagement {
 		int num = scan.nextInt();
 		
 		AStudent std 
-			= new AStudent(grade, classNum, num, "");
+			= new AStudent(grade, classNum, num, "", null);
 		
 		return stdList.remove(std);
 	}
@@ -153,7 +153,7 @@ public class ExbStudentInfoManagement {
 		
 		//특정 학생 정보가 있으면 이름, 성적을 입력 받음
 		//특정 학생 정보의 번지가 0이상이면 이름, 성적을 입력 받음
-		AStudent std = new AStudent(grade, classNum, num, "");
+		AStudent std = new AStudent(grade, classNum, num, "", null);
 		int index = stdList.indexOf(std);
 		if(index >= 0) {
 			System.out.print("이름 : ");
@@ -181,7 +181,7 @@ public class ExbStudentInfoManagement {
 			//방법2. set()
 			//입력받은 학생 정보와 이름, 성적을 하나의 객체로 만들어서
 			//리스트에 수정하는 방법
-			std = new AStudent(grade, classNum, num, name);
+			std = new AStudent(grade, classNum, num, name, null);
 			stdList.set(index, std);
 			return true;
 		}
