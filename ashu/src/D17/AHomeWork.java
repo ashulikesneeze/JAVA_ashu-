@@ -11,7 +11,7 @@ public class AHomeWork {
 		- 학생 정보 추가
 		- 학생 정보 출력(전체, 개인)
 		- 학생 정보 수정
-		- 학새 정보 삭제
+		- 학생 정보 삭제
 		- 프로그램 종료
 		- 유의 사항
 		  - 학생 정보 추가시 기존에 있는 학생(학년, 반, 번호가 일치하는 학생)인 경우 학생 정보를
@@ -26,33 +26,33 @@ public class AHomeWork {
 			//메뉴 출력
 			printMenu();
 			try {
-			//메뉴선택
-			menu = scan.nextInt();
-			//선택된 메뉴에 따라 동작 실행 
-			switch(menu) {
-			//학생 정보 추가 기능 
-			case 1: inputStudent(scan, stdList); break;
-			//전체 학생 정보 출력 기능 
-			case 2: printStudentList(stdList); break;
-			//특정 학생 삭제 기능
-			case 3: 
-				if(deleteStudent(stdList, scan)) {
-					System.out.println("학생 정보가 지워졌습니다.");
-				}else {
-					System.out.println("입력하신 학생와 일치하는 정보가 없습니다.");
-				}
-				break;
-			case 4: 
-				if(modifyStudent(scan, stdList)) {
-					System.out.println("학생 정보가 바뀌었습니다.");
-				}else {
-					System.out.println("학생정보를 찾을 수 없습니다.");
-				}
-				break;
-			case 5: break;
-			default:
-				System.out.println("틀린 메뉴입니다.");
-				}
+				//메뉴선택
+				menu = scan.nextInt();
+				//선택된 메뉴에 따라 동작 실행 
+				switch(menu) {
+				//학생 정보 추가 기능 
+				case 1: inputStudent(scan, stdList); break;
+				//전체 학생 정보 출력 기능 
+				case 2: printStudentList(stdList); break;
+				//특정 학생 삭제 기능
+				case 3: 
+					if(deleteStudent(stdList, scan)) {
+						System.out.println("학생 정보가 지워졌습니다.");
+					}else {
+						System.out.println("입력하신 학생와 일치하는 정보가 없습니다.");
+					}
+					break;
+				case 4: 
+					if(modifyStudent(scan, stdList)) {
+						System.out.println("학생 정보가 바뀌었습니다.");
+					}else {
+						System.out.println("학생정보를 찾을 수 없습니다.");
+					}
+					break;
+				case 5: break;
+				default:
+					System.out.println("틀린 메뉴입니다.");
+					}
 			} catch(InputMismatchException e) {
 				System.out.println("입력을 제대로 해주세요.");
 			} catch(Exception e) {
@@ -64,12 +64,12 @@ public class AHomeWork {
 		scan.close();
 	}
 		
-		private static boolean deleteStudent(ArrayList<AStudent> stdList, Scanner scan) {
+	private static boolean deleteStudent(ArrayList<AStudent> stdList, Scanner scan) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-		private static void printStudentList(ArrayList<AStudent> stdList) {
+	private static void printStudentList(ArrayList<AStudent> stdList) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -80,17 +80,18 @@ public class AHomeWork {
 			System.out.println("학년 : ");
 			int grade = scan.nextInt();
 			System.out.println("학반 : ");
-			int calssNum = scan.nextInt();
+			int classNum = scan.nextInt();
 			System.out.println("번호 : ");
 			int num = scan.nextInt();
 			System.out.println("이름 : ");
 			scan.nextLine();
+			ArrayList<AScore> scoreList = new ArrayList<AScore>();
 			String name = scan.nextLine();
 			System.out.println("과목 : ");
-			String sbjectTitle = scan.nextLine();
+			String subjectTitle = scan.nextLine();
 			System.out.println("학년 : ");
-			//grade = scan.nextInt();
-			//System.out.println("학기 : ");
+			grade = scan.nextInt();
+			System.out.println("학기 : ");
 			int semester = scan.nextInt();
 			System.out.println("성적을 입력해 주세요.");
 			System.out.println("성적 : ");
@@ -99,8 +100,9 @@ public class AHomeWork {
 			//문제제기 : 1. Astudent와 AScore의 공통적인 객체 int grade 자동적으로 합쳐짐? 아님 처리해야함?
 	    	//         2. 배열 순서 바꾸고 싶을때 : subjectTitle, grade, semester, classNum, num, name, point 
 			//객체 생성
-			AStudent std = new AStudent(subjectTitle, grade, semester, classNum, num, name, point);
-			return std;
+			AScore score = new AScore(subjectTitle, grade, semester, point);
+			scoreList.add(score);
+			return new AStudent(grade, classNum, num, name, scoreList);
 		}
 		//스캐너를 이용해 입력받은 정보들을 주어진 리스트에 넣어주는 방법 
 		public static void inputStudent(Scanner scan, ArrayList<AStudent> stdList) {
@@ -139,33 +141,29 @@ public class AHomeWork {
 			int num = scan.nextInt();
 			
 			//특정 학생 정보가 0이상 번지에 있으면 이름 성적을 입력받음 
-			AStudent std = new AStudent(grade, classNum, num, "");
+			AStudent std = new AStudent(grade, classNum, num, "", new ArrayList<AScore>());
 			int index = stdList.indexOf(std);
 			if(index >= 0) {
 				System.out.print("이름 : ");
 				scan.nextLine();
 				String name = scan.nextLine();
 				System.out.print("성적 :");
-				Int point = scan.nextInt();
+				int point = scan.nextInt();
 				
-			//객체 추가 후 복사값넣고 주소는 따로 보관할 수 있도록
-			//AStudent 클래스의 equals을 오버라이딩한 후,
-			//indexOf와 set을 사용하여 리스트에 수정함 
-			std = newAStudent(grade, classNum, num, name);
-			stdList.set(index, std);
-			return true;
+				//객체 추가 후 복사값넣고 주소는 따로 보관할 수 있도록
+				//AStudent 클래스의 equals을 오버라이딩한 후,
+				//indexOf와 set을 사용하여 리스트에 수정함 
+				//std = newAStudent(grade, classNum, num, name);
+				stdList.set(index, std);
+				return true;
 			}
 			//없으면 끝
 			return false;
 		}
 		
-		
-				
+		 
 			
-				
-				
-			}
-		}
+		
 		
 
 }

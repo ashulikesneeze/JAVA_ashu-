@@ -6,13 +6,13 @@ public class AStudent {
 	private int grade, classNum, num;
 	private String name;
 	private ArrayList<AScore> score;
-	
-	public AStudent(int grade, int classNum, int num, String name) {
-		super();
+
+	public AStudent(int grade, int classNum, int num, String name, ArrayList<AScore> score) {
 		this.grade = grade;
 		this.classNum = classNum;
 		this.num = num;
 		this.name = name;
+		this.score = score;
 	}
 
 	@Override
@@ -31,8 +31,7 @@ public class AStudent {
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
+		} 
 		if (num != other.num)
 			return false;
 		return true;
