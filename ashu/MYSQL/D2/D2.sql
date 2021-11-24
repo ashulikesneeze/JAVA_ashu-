@@ -1,6 +1,9 @@
 -- UniEffectEmail : task scheduler (send an email at a specific time on a schedule)
 --                  tracking campaign (bounces, forwards, clicks and unscribes) 
 
+-- ERD Cloud 
+-- ERD : Database -> reverse engineer 
+
 -- 1. university_ashu DB 생성 (right click)
 drop schema if exists university_ashu; 
 CREATE SCHEMA university_ashu ;
@@ -16,8 +19,8 @@ CREATE TABLE `university_ashu`.`student` (
   `st_name` VARCHAR(50) NOT NULL,
   `st_reg_name` VARCHAR(14) NOT NULL,
   PRIMARY KEY (`st_num`),
-  UNIQUE INDEX `st_id_UNIQUE` (`st_id` ASC) VISIBLE,
-  UNIQUE INDEX `st_reg_name_UNIQUE` (`st_reg_name` ASC) VISIBLE);
+  UNIQUE INDEX `st_id_UNIQUE` (`st_id` ASC) ,
+  UNIQUE INDEX `st_reg_name_UNIQUE` (`st_reg_name` ASC) );
 
 -- 테이블명 앞에 DB명이 붙은 경우와 안 붙는 경우의 차이 
 -- 붙은경우는 현재 선택된 DB와 관계없이 테이블을 활용할 수 있다 
