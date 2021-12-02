@@ -1,0 +1,16 @@
+visual studio code
+ctrl + shift +x 
+
+live server
+
+file -> open folder -> D: new folder  
+
+file -> preference setting -> untick insert spaces & tab size 4->2 
+
+input:color enter 
+
+ctrl + S 
+
+F12 key for developer 
+
+ctrl + + or - 

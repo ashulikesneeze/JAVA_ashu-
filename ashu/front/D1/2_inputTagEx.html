@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>inputTagEx</title>
+</head>
+<body>
+<form action="">
+	<!-- 주석처리 (ctr+/) -->
+	<!-- 들여쓰기 잘해야함 선택후 tab key -->
+	<input type ="text" name = "serch" placeholder="plz insert waht you want to search"><br>
+	<input type ="text" name = "serch" placeholder="plz insert waht you want to search" readonly><br>
+	<input type ="text" name = "serch" placeholder="plz insert waht you want to search" disabled><br>  
+	<input type = "password" name="pw" placeholder="insert password"> <br>
+	fruit you like? (checkbox : you can tick plural)
+	<input type ="checkbox" name="fruit" value="apple" checked>apple
+	<input type ="checkbox" name="fruit" value="orange">orange <br>  
+	male? female? (radio box : you only tick one also the name has to be indentical)
+	<input type="radio" name="gender" value="M" checked> male  
+	<input type="radio" name="gender" value="F"> female <br>
+	what's your favarite colour? <br>
+	<input type="color" name ="color" value="#ffffff"><br>
+	<input type="month" name="month"><br>
+	<input type="week" name="week"><br>
+	<input type="date" name="date"><br>
+	<input type="datetime-local" name="datetime-local"><br>
+	<input type="time" name="time"><br>
+	datepicker(normally pugin use) <br>
+	<input type="file" name="file"> <br>
+	enctype="multipart/form-data" (must have it: this helps to transffer a file) <br>
+	<input type="image" src="" alt="none of image available">
+	<!-- also available copy of img address and paste -->
+	<input type="image" src="frenchBullDog.jfif" >
+	<input type="image" src="../D1/frenchBullDog.jfif">
+	<input type="image" src="./frenchBullDog.jfif"> <br>
+	<!-- ../ 상위폴더 or ./ 현재폴더 or ctrl + space  --> <br>
+	<input type="number" name="number" min="1" max="10"> <br>
+	<input type="search" name="search"> <br>
+	1<input type="range" name="range" min="1" max="6">6<br>
+	<input type = "hidden" name="hidden" value="123">
+	<input type="email" name="email">
+	<input type="url" name="url">
+	<input type="button" value="button">
+	<input type="submit" value="submit">
+	<input type="reset" value="reset">
+ </form>
+</body>
+</html>
