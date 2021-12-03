@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>formEx</title>
+</head>
+<body>
+	<form action="" method="get"> 
+		<input type ="text" name="id"> <br>
+		<input type="password" name="pw"> <br>
+		<input type="submit" name="submit"> get method
+	</form>
+	<form action="" method="post">  
+		<input type ="text" name="id"> <br>
+		<input type="password" name="pw"> <br>
+		<input type="submit" name="submit"> post method
+	</form>
+	<form action="" method="get"> 
+		<input type ="file" name="file"> <br>
+		<input type="submit" name="submit"> get method
+	</form>
+	<form action="" method="post" enctype="multipart/form-data">
+		첨부파일은 must! post method!! 
+		<input type ="file" name="file"> <br>
+		<input type="submit" name="submit">
+	</form>
+	<!-- get은 기본으로 들어감 -->
+	<form action="../visual studio.txt"> 
+		<input type ="text" name="id"> <br>
+		<input type="password" name="pw"> <br>
+		<input type="submit" name="submit">
+	</form>
+	<form action="http://www.naver.com"> 
+		<input type ="text" name="id"> <br>
+		<input type="password" name="pw"> <br>
+		<input type="submit" name="submit">
+	</form>
+	<form action="">
+		<input type="text" name="id"> <br>
+		<button type="button"> button</button> <br>
+		<button type="reset">reset</button> <br>
+		<button type="submit">submit</button>
+	</form>
+	<!-- form tag  -->
+	<input type="text" name="id"> <br>
+	<button type="button"> button</button> <br>
+	<button type="reset">reset</button> <br>
+	<button type="submit">submit</button>
+</body>
+</html>
