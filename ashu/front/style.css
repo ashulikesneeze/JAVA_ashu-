@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>selector</title>
+	<style>
+		*{ color: red /*display: block; *//* 1~6, body tag, head tag.. including all tag */}
+		.box{  /* 6 */  }
+		a{     /* 2,4 */  }
+		#box{  /* 5 */  }
+		.link{ /* 2,4 */  }
+	</style>
+</head>
+<body>
+	<p>hello</p> <!-- 1 -->
+	<a href="//naver.com" class="link">naver</a> <br> 
+	<!-- 이미 만들어진 css를 연결하는 방법 -->
+	<link rel="stylesheet" href="style.css">
+	<!-- sytle 태그 이용 방법 -->
+	<style>
+		/*스타일적용*/
+	</style>
+	<!-- div tag's offspring is a tag
+	     div tag is body tag's offspring and grandchild 
+			 a tag is body tag's offspring NOT but grandchild -->
+	<div>
+		<a href="#">naver</a>
+		<div class="box">
+			<div class="inner-box">
+				box
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>  

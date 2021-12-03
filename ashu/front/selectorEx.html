@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>selectorEx</title>
+	<style>
+				div>a{
+								/* naver link */
+								/* color: red; */
+				}
+				div>div{
+								/*box1, box2*/
+								/*color: green;*/
+				}
+				a.box{
+								/*non-available*/
+								/*color: yellow; */
+				}
+				div .inner-box{
+								/*box1*/
+								/* color: violet; */
+				}
+				*[href='#']{
+								/*naver*/
+								/*color:gray;*/
+				}
+				a:link{
+								/*color:red;*/
+				}
+				a:visited{
+								/*color:blue;*/
+				}
+				a:hover{
+								/*color:red*/
+				}
+				input:focus{
+								/*color:red;*/
+				}
+				#box>.inner-box:nth-child(1){
+								/*color:red;*/
+				}
+				#box>.inner-box:first-child{
+			/* color: red; */
+		}
+		#box>.inner-box:nth-child(odd){
+			/* color: red; */
+		}
+		#box>.inner-box:nth-child(2n-1){
+			/* color: red; */
+		}
+		#box>.inner-box:last-child{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- div tag's offspring is a tag
+	     div tag is body tag's offspring and grandchild 
+			 a tag is body tag's offspring NOT but grandchild -->
+			 <div>
+				<a href="#">naver</a>
+				<div class="box">
+					<div class="inner-box">
+						box1
+					</div>
+				</div>
+				<div>
+						box2
+				</div>
+			</div>
+			<input type="text">
+			<div id="box">
+				<div class="inner-box">1</div>
+				<div class="inner-box">2</div>
+				<div class="inner-box">3</div>
+				<div class="inner-box">4</div>
+				<div class="inner-box">5</div>
+			</div>
+</body>
+</html>
