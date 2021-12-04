@@ -29,8 +29,12 @@ public class ScannerAndRandomNo {
 		
 		scan.close(); 
 		
-		
-
+		int min=1, max=10;
+		for(int i=0; i<5; i++) {
+			int random = (int)(Math.random()*(max-min+1)+min);
+			System.out.print(random + " ");
+		}
+		System.out.println();
 	}
 
 }
