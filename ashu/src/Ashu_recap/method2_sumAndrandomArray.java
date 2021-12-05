@@ -72,6 +72,33 @@ public class method2_sumAndrandomArray {
 		return sum; 
 	}
 	
+
+	/* 기능 : 정수가 주어지면 정수의 합을 알려주는 메소드
+	 * 매개변수 : 정수가 하나 일수도 여려개 일수도 => int ...nums
+	 * 리턴타입 : int 
+	 * 메소드명 : sum3
+	 */
+	public static int sum3(int...nums) {
+		int sum = 0; 
+		for(int i=0; i<nums.length; i++) {
+			sum +=nums[i]; 
+		}
+		return sum;
+	}
+	
+	public static void printInfo(int grade, int classNum, int num,
+			String name, String...nicknames) {
+			System.out.println("grade : " + grade);	
+			System.out.println("classNum : " + classNum);
+			System.out.println("num : " + num);
+			System.out.println("name : " + name);
+			System.out.print("nicknames : ");
+			for(int i=0; i<nicknames.length; i++) {
+				System.out.print(nicknames[i] + " ");
+			}
+			System.out.println();
+		}
+	
 	/* 기능 : 베열의 크기가 주어지면 주어진 배열의 크기만큼 btw min & max
 	 *       랜덤 수를 생성 저장 후 만들어진 배열을 알려주는 메소드 
 	 * 매개변수 : int min, int max, int size
