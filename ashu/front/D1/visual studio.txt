@@ -22,3 +22,5 @@ alt +_ click click click (plural cursor)
 들여쓰기 잘해야함 선택후 tab key
 
 ../ 상위폴더 or ./ 현재폴더 or ctrl + space
+
+Google fonts site : eg. nanum -> click +select this stype and copy link 
