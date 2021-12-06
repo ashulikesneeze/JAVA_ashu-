@@ -10,14 +10,18 @@ public class HW_UpDownGame {
 		System.out.println(num);
 	
 		Scanner scan = new Scanner(System.in); 
-		System.out.print("1에서 100사이의 정수를 입력하세요 : ");
-		int user = scan.nextInt();
 		
+		
+		int user;
 		do {
+			System.out.print("1에서 100사이의 정수를 입력하세요 : ");
+			user = scan.nextInt();	
+	
 			
-		check(num, user);      continue;
+		check(num, user);  
 		
-		}while(user == num); 
+		
+		}while(user != num); 
 		
 		System.out.println("정답입니다. 프로그램을 종료합니다.");
 
