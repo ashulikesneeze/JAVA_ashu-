@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>background</title>
+	<style>
+		.box{
+			width: 500px; height: 500px; 
+			/* order for background : color, image, position/size repeat */
+			background-color: red url(../dog.jpg) center center repeat;
+			margin: 0 auto; 
+		}
+		.dog{
+			height: 500px;
+			background-color: yellow;
+			background-image: url(../dog.jpg);
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<div class="dog"></div>
+</body>
+</html>
