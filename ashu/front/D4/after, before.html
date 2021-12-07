@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* after/before를 쓰면 drag가 안되는 장점 */
+		.hi::after{
+			content: 'nice to meet you'; display: block; 
+		}
+		.hi::before{
+			content: '<span> waving hands : </span>'; display: inline;
+		}
+		.menu::before{
+			width: 4px; height: 4px; background: black; display: inline-block;
+			content:''; position: relative; top: -5px; margin-right: 4px; border-radius: 2px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<span class="hi"> hello</span>
+	</div>
+	<div>
+		<span class="menu"> menu</span>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

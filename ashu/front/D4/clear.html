@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.box{border: 1px solid red;}
+		.left-box{
+			background: yellow; width: 200px; height: 150px; float: left;}
+		.right-box{
+			background: #0f0; width: 200px; height: 50px; float: right;}
+			/* clear left: float으로 된 요소 중 왼쪽을 기준으로 부모 높이를 잡게 해줌 
+			clear right: float으로 된 요소 중 오른쪽을 기준으로 부모 높이를 잡게 해줌 
+			clear both: float으로 된 요소 중 가장 아래를 기준으로 부모 높이를 잡게 해줌 */
+		.box::after{
+			clear: both; content:''; display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+</body>
+</html>
