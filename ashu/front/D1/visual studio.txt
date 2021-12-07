@@ -9,9 +9,12 @@ file -> preference setting -> untick insert spaces & tab size 4->2
 
 input:color enter 
 
+alt + l+ o 
 ctrl + S 
 
 F12 key for developer 
+
+input:name whithout <>
 
 ctrl + + or - 
 
@@ -22,5 +25,7 @@ alt +_ click click click (plural cursor)
 들여쓰기 잘해야함 선택후 tab key
 
 ../ 상위폴더 or ./ 현재폴더 or ctrl + space
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 
 Google fonts site : eg. nanum -> click +select this stype and copy link 
