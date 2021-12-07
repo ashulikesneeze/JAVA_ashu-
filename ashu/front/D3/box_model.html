@@ -16,38 +16,27 @@
 			padding-bottom: 30px;
 			padding-left: 40px;
 		}
+		/* border size 합친 크기여서 box1보다 작은 사이즈
+		   box2가 box1아래로 생성 */
 		.box2{
-			box-sizing: border-box;
-			width: 100px;
-			height: 100px;
-			background-color: #0f0;
-			padding: 10px 20px 30px 40px;
-		}
-		.box3{
-			width: 100px;
-			height: 100px;
-			background-color: blue;
-			margin-top: 0px;
-			margin-left: -10px;
-			margin-right: 50px;
-		}
-		.box4{
-			width: 100px;
-			height: 100px;
-			background-color: yellow;
-			margin: 0 auto;
-		}
+		box-sizing: border-box;
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		padding: 10px 20px 30px 40px;
+	}
 	</style>
 </head>
 <body>
 	<div class="box1"></div>
 	<div class="box2"></div>
+	<!--inline : width & height 조절 불가능
+	    box2가 box1의 옆으로 나란히 생성  -->
 	<span class="box1">1</span>
 	<span class="box2">2</span>
 	<br>
 	<input type="text" class="box1">
 	<input type="text" class="box2">
-	<div class="box3"></div>
-	<div class="box4"></div>
+	
 </body>
 </html>
