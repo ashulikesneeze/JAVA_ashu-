@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- box-sizing: 기본은 content-box 
+	                 border-box - 가로 세로 계산시 content + padding + border
+			block tag에 가로 지정하면 지정한 가로 제외한 나머지가 margin-right로 할당됨
+		  width & height: inline tag 적용 안됨! block O inline-block O
+		  input tag == inline-block tag : div tag == block tag : span tag == inline tag
+
+			block: 새라인에서 시작, width와 height로 크기조절, padding, border, margin 조절가능
+			       옆에 다른요소 배치 불가능(기본값으로는)
+			inline: 현재라인에서 시작, width와 height로 크기조절 x, margin-top & margin-bottom x 
+			       옆에 다른요소 배치 가능
+			inline-block: 현재라인에서 시작, width와 height로 크기조절, padding, border, margin 조절가능
+			-->
+	<style>
+		.inline{
+			width: 100px; height: 100px; background: yellow; margin-top: 10px;
+			display: inline;
+		}
+		.block{
+			width: 100px; height: 100px; background: yellow; margin-top: 10px;
+			display: block;
+		}
+		.inline-block{
+			width: 100px; height: 100px; background: yellow; margin-top: 10px;
+			display: inline-block;
+		}
+		.none{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="inline">inline</div>
+	<div class="inline">inline</div>
+	<!-- up and down one by one -->
+	<span class="block">block</span>
+	<span class="block">block</span>
+	<span class="none">none</span>
+	<!-- side by side -->
+	<div class="inline-block">inline block</div>
+	<div class="inline-block">inline block</div>
+</body>
+</html>

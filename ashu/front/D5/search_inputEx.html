@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.form-search{
+			height: 50px; border: 1px solid red; position: relative; 
+		}
+		.box-search{height: 50px; box-sizing: border-box; border: 2px solid red;}
+		.input-search{
+			height: 30px; width: 200px; font-size: 28px; position: absolute;
+			/* calc: 50% 밑으로에서 높이의 반 올리고 테두리 올리고 */
+			top: calc(50% - 15px -2px); left: 10px; width: calc(100% - 70px); 
+		}
+		.button-search{
+			height: 50px; box-sizing: border-box; border: 2px solid blue; width: 50px; 
+			position: absolute; right: 0; top: 0; background: blue; color: white; 
+		}
+		.input-search:focus{outline: none;}
+	</style>
+</head>
+<body>
+	<form action="" class="form-search">
+		<div class="box-search">
+			<input type="text" class="input-search">
+			<button class="button-search">search</button> 
+		</div>
+	</form>
+</body>
+</html>

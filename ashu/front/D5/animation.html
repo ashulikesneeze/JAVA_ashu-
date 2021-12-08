@@ -6,12 +6,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<style>
-		.in
+		@keyframes scale-text{
+			0%{	font-size: 20px;	}
+			100%{	font-size: 50px;}
+		}
+		.box{
+			font-size: 20px; font-weight: bold;
+			animation-name: scale-text; animation-duration: 2s; 
+			animation-iteration-count: infinite; 
+		}
 	</style>
 </head>
 <body>
-	<div class="inline">inline</div>
-	<span class="block">block</span>
-	<div class="inline-block">inline block</div>
+	<div class="box">
+		Yuck!
+	</div>
 </body>
 </html>
