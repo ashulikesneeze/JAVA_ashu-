@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+
+		*{padding: 0; margin: 0;}
+		/* ul은 block tag이기 때문에 옆에 box가 오게 하려면 float을 이용해야함 */
+		ul{list-style: none;}
+		a{color: #000; text-decoration: none;}
+
+
+		@media screen and (max-width: 800px) {
+			.box{display: flex;}
+			.box-item{
+				width: 100%; box-sizing: border-box; height: 100px; border: 2px solid purple;
+	    	border-left: none; overflow: hidden; 
+    	}
+			/* 곂치는 부분 처리 */
+			.box-item:first-child{border-left: 2px solid purple;}	
+			.contents{
+			height: 500px; margin-top: 10px; box-sizing: border-box;
+			border: 2px solid skyblue;
+			}	
+		}
+
+		@media screen and (min-width: 800px) {
+			.box{
+				width: 300px; float: left; 
+			}
+     .box-item{
+	      height: 100px; box-sizing: border-box; border: 2px solid purple;
+       	border-bottom: none; overflow: hidden;
+      }
+    .box-item:last-child{
+      	border-bottom: 2px solid purple;
+      }
+		.contents{
+				/* calc : 값 사이 띄어주기 해주어야 함  */
+		height: 500px; box-sizing: border-box;
+		border: 2px solid skyblue;
+		display: block; width: calc(100% - 300px - 10px); float: right;
+			}	
+   }
+
+	 .box-link{
+				width: 100%; height: 100%; text-align: center; display: block; line-height: 48px;
+			}
+
+	</style>
+</head>
+<body>
+	<ul class="box">
+		<li class="box-item">
+			<a href="#" class="box-link">box1</a>
+		</li>
+		<li class="box-item">
+			<a href="#" class="box-link">box2</a>
+		</li>
+		<li class="box-item">
+			<a href="#" class="box-link">box3</a>
+		</li>
+	</ul>
+	<div class="contents"></div>
+	</body>
+	</html>
+
+	
+
+

@@ -29,3 +29,11 @@ alt +_ click click click (plural cursor)
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 
 Google fonts site : eg. nanum -> click +select this stype and copy link 
+
+https://animate.style/
+
+w3school : bootstrap
+eg: Carousel (image 넘어가기)
+
+w3school > bootstrap > icon > copy address 
+font awesome site: 
