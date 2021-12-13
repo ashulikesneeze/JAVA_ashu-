@@ -10,7 +10,8 @@
 .container-fluid{
 	min-width: 1190px;
 }
-.menu-container::after{
+.menu-container::after,
+contents-l-box2 {
 	content: ''; clear: both; display: block;
 }
 
@@ -137,6 +138,13 @@
 }
 .contents-l-box2{
 	height: 367px; background: whitesmoke;
+}
+.contents-l-box2 .group-issue{
+	padding: 12px 15px 11px 15px; border: 1px solid #dae1e6;
+	background: #f7f9fa; line-height: 24px;
+}
+.contents-l-box2 .issue-area{
+	float: left; 
 }
 .contents-r-box{
 	width: 350px; height: 1000px;  float: right;
