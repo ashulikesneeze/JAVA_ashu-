@@ -33,7 +33,8 @@ Google fonts site : eg. nanum -> click +select this stype and copy link
 https://animate.style/
 
 w3school : bootstrap
-eg: Carousel (image 넘어가기)
+eg: Carousel (image 넘어가기), navbar(search), forms(userid, pw, email), 
+**input, scroll, utilities, flex, media object
 
 w3school > bootstrap > icon > copy address 
 font awesome site: 
