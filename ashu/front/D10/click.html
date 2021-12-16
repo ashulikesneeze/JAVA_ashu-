@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>click</title>
+	<script src="//code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+	<button id="btn-click">click</button>
+	<button class="btn">button click</button> <br>
+	<button class="btn">button click</button> <br>
+	<button class="btn">button click</button> <br>
+	<button class="btn">button click</button> <br>
+	<script>
+		//이벤트등록
+		$('#btnClick').click(function(){
+			console.log('click');
+		});
+		//이벤트 발생 여부와 관계없이 이벤트 실행
+		$('#btnClick').click();
+
+		$('.btn').on('click',function(){
+			console.log('button click');
+		});
+	</script>
+</body>
+</html>

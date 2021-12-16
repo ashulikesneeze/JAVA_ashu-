@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>hover</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		.box1{ height: 100px; background-color: yellow;}
+		.box2{ height: 100px; background-color: red;}
+	</style>
+</head>
+<body>
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<script>
+		$('.box1').hover(function(){
+			console.log('hovering');
+		});
+		$('.box2').hover(function(){
+			console.log('hovering');
+		},
+		function() {
+			console.log('done with hovering')
+		})
+	</script>
+</body>
+</html>

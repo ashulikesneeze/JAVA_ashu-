@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		.box{ height: 100px; background-color: yellow; display: none; }
+	</style>
+</head>
+<body>
+</script>	
+<button id="btn1">click</button>
+<button id="btn2">click</button>
+<div class="box"></div>
+<script>
+	//한번에 두가지가 실행 
+	$('#btn1').on('click',function(){
+		$('.box').show(3000);
+		$('.box').hide(3000);
+		console.log('terminate method1');
+	});
+
+	//한번에 하나씩, 추천 방법 
+	$('#btn2').on('click',function(){
+		$('.box').show(3000, function(){
+			$('.box').hide(3000);
+			console.log('terminate method2');
+		});
+	});
+</script>	
+</body>
+</html>

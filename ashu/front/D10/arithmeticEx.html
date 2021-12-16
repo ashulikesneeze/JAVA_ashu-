@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+	<title>arithmeticEx</title>
+</head>
+<body>
+	<script>
+		// 숫자 1을 문자열 1로 변환해서 비교 
+		console.log('1 == "1" : ' + (1 == '1'));
+		console.log('1 != "1" : ' + (1 != '1'));
+		// 숫자 1과 문자1은 같지만 자료형이 다르기 때문에 false
+		console.log('1 === "1" : ' + (1 === '1'));
+		console.log('1 !== "1" : ' + (1 !== '1'));
+
+		//정수 / 정수 => 실수
+		var res = 1/2;
+		console.log('1/2= ' + res);
+
+		console.log('1> "2" : ' + (1> '2'));
+		console.log('12> "2" : ' + (12> '2'));
+		console.log('"1"> "2" : ' + ('1'> '2'));
+		// 문자열로 변환하여 비교할때 한글자씩 2와 12중의 1을 먼저 비교하기때문에 false
+		console.log('"12"> "2" : ' + ('12'> '2'));
+	</script>
+</body>
+</html>

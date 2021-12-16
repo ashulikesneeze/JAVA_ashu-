@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>function</title>
+</head>
+<body>
+	<script>
+		//함수 선언식
+		printHello1();
+		function printHello1(){
+			console.log("Hello");
+		}
+		printHello1();
+
+		//함수 표현식 : 위치에 따라 결과가 안나올 수 있다. Thus, 함수 선언식으로! 
+		/*printHello2();
+		var printHello2 = function(){
+			console.log("Hi");
+		}
+		printHello2();*/
+
+		function sum(a, b){
+			return a + b;
+		}
+		console.log('1 + 2 = ' + sum(1,2));
+		console.log(printHello1());
+		//return 타입이 없는 경우 error가 아닌 undefined가 뜸 
+		var num;
+		console.log(num);
+	</script>
+</body>
+</html>
