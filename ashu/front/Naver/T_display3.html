@@ -7,6 +7,7 @@
 	<title>NAVER</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<link rel="stylesheet" href="naver.css">
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	<div class="whale-box container-fluid"></div>
@@ -24,6 +25,7 @@
 		</div>
 	</div>
 	<div class="menu-box container-fluid">
+		<div class="service-box"></div>
 		<div class="menu-container-box container">
 			<!-- 메일~ 더보기전까지 메뉴 -->
 			<div class="menu-container">
@@ -358,16 +360,77 @@
 					</div>
 				</div>
 			</div>
+			<div class="contnets-l-box3">
+				<div class="theme-head">
+					<div class="group-title-l">
+						<span class="title">오늘 읽을만한 글</span>
+						<span class="dsc">주제별로 분류된 다양한 글 모음</span>
+					</div>
+					<div class="group-title-r">
+						<span class="info">1762
+							<span class="new">개의 글</span>
+						</span>
+						<a href="#" class="btn-set">관심주제 설정</a>
+					</div>
+			</div>
+			<div class="group-container">
+				<div class="btn-box">
+				</div>
+				<div class="group-category">
+					<div class="main-category after">
+						<ul class="category-list">
+							<li class="category-item">
+								<a href="#" class="category-link enter">enter</a>
+							</li>
+							<li class="category-item">
+								<a href="#" class="category-link sports sel">sports</a>
+							</li>
+							<li class="category-item">
+								<a href="#" class="category-link car">car</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link webtoon">webtoon</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link economy">economy</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link recipe">recipe</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link game">game</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link movie">movie</a>
+							</li>
+						</ul>
+						<ul class="category-list">
+							<li class="category-item">
+								<a href="#" class="category-link">JOB&</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="theme-contents">contents</div>
+			</div>
 		</div>
 		<div class="contents-r-box">
 			<div class="contents-r-box1">
 				<div class="title">네이버를 더 안전하고 편리하게 이용하세요</div>
-				<a href="#" class="login-link">
+				<a href="#" class="login-link"><
 					<span class="naver">NAVER</span>
 					<span class="login">로그인</span>
 				</a>
 			</div>
 			<div class="contents-r-box2">
+				<div class="contents-view">
+					<ul class="contents-list">
+						<li class="contents-item">
+							<a href="#" class="contents-link">
+								<i class="news-badge">issue</i>
+								<span class="news">코로나바이러스감염증-19 현황</span>
+							</a>
+						</li>
+						<li class="contents-item">
+							<a href="#" class="contents-link">2</a>
+						</li>
+					</ul>
+				</div>
 				<div class="btn-box">
 					<a href="#" class="prev-btn"><i class="fas fa-angle-left"></i></a>
 					<a href="#" class="next-btn"><i class="fas fa-angle-right"></i></a>
@@ -376,5 +439,10 @@
 		</div>
 	</div>
 	<footer class="footer-box container"></footer>
+	<script>
+		$('.menu-box .btn-more').on('click', function(){
+			$('.service-box').toggle();
+		});
+	</script>
 </body>
 </html>
