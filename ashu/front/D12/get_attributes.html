@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>get_property_attributes</title>
+	<!-- use prop over attr -->
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<input type="text" class="id">
+	<div class="box">1</div>
+	<input type="checkbox" name="gender" value="noodles" checked="checked">noodles<br>
+	<img src="../D2/dog.jpg" alter="dog">
+	<script>
+		var imgSource1 = $('img').attr('src');
+		var imgSource2 = $('img').prop('src');
+		console.log('attr src: ' + imgSource1);
+		console.log('prop src: ' + imgSource2);
+		var isChecked1 = $('[name=food]').attr('checked');
+		var isChecked2 = $('[name=food]').prop('checked');
+		console.log('attr checked: ' + imgSource1);
+		console.log('prop checked: ' +imgSource2);
+		var className1 = $('.id').attr('class');
+		var className2 = $('.id').prop('class');
+		console.log('attr class: ' + className1);
+		console.log('prop class: ' +className2);
+	</script>
+</body>
+</html>

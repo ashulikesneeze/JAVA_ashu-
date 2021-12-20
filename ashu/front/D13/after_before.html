@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>after_before</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		.box-container{ background-color: red; }
+		.box{
+			background-color: yellow; width: 100px; height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-container">
+		<div class="box">1</div>
+	</div>
+	<script>
+		$('.box-container').after('<div>after where?</div>');
+		$('.box-container').before('<div>before where?</div>');
+		$('.box-container').append('<div>append where?</div>');
+		$('.box-container').prepend('<div>prepend where?</div>');
+	</script>
+</body>
+</html>

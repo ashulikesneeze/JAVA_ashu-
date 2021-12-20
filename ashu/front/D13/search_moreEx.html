@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>search_more</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="img-container">
+		<div class="box">
+			1<img src="../D2/dog.jpg" alt="dog" height="100">
+		</div>
+	</div>
+	<button class="btn">search-more</button>
+	<script>
+		var num =1;
+		$('.btn').click(function(){
+			++num;
+			var str =
+			'<div class="box">' + num +
+				'img src="../D2/dog.jpg" alt="dog" height="100">' +'</div>';
+				$('.img-container').append(str);
+		});
+	</script>
+</body>
+</html>

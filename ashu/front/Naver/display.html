@@ -404,6 +404,27 @@
 								<a href="#" class="category-link">JOB&</a>
 							</li>
 						</ul>
+						<ul class="category-list">
+							<li class="category-item">
+								<a href="#" class="category-link enter">enter</a>
+							</li>
+							<li class="category-item">
+								<a href="#" class="category-link sports sel">sports</a>
+							</li>
+							<li class="category-item">
+								<a href="#" class="category-link car">car</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link webtoon">webtoon</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link economy">economy</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link recipe">recipe</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link game">game</a>
+							</li><li class="category-item">
+								<a href="#" class="category-link movie">movie</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div class="theme-contents">contents</div>
@@ -440,9 +461,43 @@
 	</div>
 	<footer class="footer-box container"></footer>
 	<script>
-		$('.menu-box .btn-more').on('click', function(){
+		$('.menu-box .btn-more').on('click', function(e){
+			e.preventDefault();
 			$('.service-box').toggle();
+
+			if(!$(this).hasClass('fold')){
+				/*
+			var text = $('.menu-box .btn-more').text();
+			if(text == '더보기'){
+				 */
+				$('.menu-box .btn-more').text('접기');
+			}else{
+				$('.menu-box .btn-more').text('더보기'); 
+			}
+			$(this).toggleClass('fold'); 
 		});
+		$('.btn').click(function(e){
+			e.preventDefault();
+		});
+		$('.contents-l-box3 .category-link').click(function(e){
+			e.preventDefault();
+			$('.contents-l-box3 .category-link').removeClass('sel');
+			$(this).addClass('sel');
+		});
+
+		var min3 = 0, max3 = 3;
+		var num3 = min3;
+
+		$('.contents-l-box3 .btn-box .btn').click(function(){
+			console.log(1)
+			if($(this).hasClass('btn-prev')){
+			num3 = --num3 < min3 ? min3 : num3;
+		}else{
+			num3 = ++num3 > max3 ? max3 : num3;
+		}
+		$('.contents-l-box3 .main-category').animate({marginLeft: -750 * num3});
+		});
+	
 	</script>
 </body>
 </html>

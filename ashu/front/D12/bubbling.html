@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>bubbling</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- 요소에 이벤트가 발생하면 해당 요소에만 발생하는 것이 아니라 
+				조상 요소에도 동일한 이벤트가 발생하는 현상 -->
+</head>
+<body>
+	<div class="container">
+		<div class="box">
+			<a href="#" class="btn">button</a>
+		</div>
+	</div>
+	<script>
+		$('.btn').click(function(e){
+			//버블링을 막아주는 코드
+			e.stopPropagation();
+			console.log(e);
+			console.log('.btn click');
+		});
+		$('.box').click(function(e){
+			console.log(e);
+			console.log('.box click');
+		});
+		$('.container').click(function(e){
+			console.log(e);
+			console.log('.container click');
+		});
+	</script>
+</body>
+</html>

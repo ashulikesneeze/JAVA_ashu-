@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>parameter</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+</head>
+<body>
+	<button class="minus">-</button>
+	<span class="num">1</span>
+	<button class="plus">+</button>
+	<script>
+		//all area parameter call 
+		//console.log(num);
+	
+		var min = 10; max = 15;
+		num = min;
+
+		$('.num').text(num);
+		$('.minus').click(function(){
+			num--;
+			if(num < min){
+				num = min;
+			}
+			$('.num').text(num);
+		});
+		$('.plus').click(function(){
+			num++;
+			if(num > max){
+				num = max;
+			}
+			$('.num').text(num);
+		});
+	</script>
+</body>
+</html>

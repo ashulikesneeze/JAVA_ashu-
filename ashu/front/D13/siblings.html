@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>siblings</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="box">1</div>
+		<p>2</p>
+		<div class=title">3</div>
+		<button class="btn">button</button>
+		<ul class="menu">
+			<li>4-1</li>
+			<li>4-2</li>
+		</ul>
+		<button class="btn">button</button>
+		<a href="//naver.com">naver</a>
+		<footer>footer</footer>
+	</div>
+	<script>
+		$('.menu').siblings().css('color','red');
+		$('.menu').siblings('div').css('color','blue');
+		console.log($('.menu').siblings('div').length);
+		$('.menu').prev().css('font-weight','bold');
+		$('.menu').next().css('font-weight','bold');
+		$('.menu').prevAll().css('font-size','30px');
+		$('.menu').prevAll('button').css('backgorun','yellow');
+		$('.menu').prevUntil('p').css('border','1px solid red');
+	</script>
+</body>
+</html>

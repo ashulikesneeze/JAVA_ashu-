@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>submenu</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		*{ padding: 0; margin: 0;}
+		ul, ol{ list-style: none; }
+		/* a tag reason: submenu 생성시, 형제관계로써 크기가 같게 하기 위해서
+		   ul 부모 submenu li 자손 일경우 부모 ul 테두리 양옆 1px씩 작게 생성되는걸 막기 위해 */
+		a{ text-decoration: none; color: #000; }
+		.main-menu{ display: flex; }
+		/* menu-item 같은 이름이 여러개이기때문에 띄어쓰기 안됨 다 적용되면 안되기 때문에 */
+		.main-menu>.menu-item{ width: 100%; height: 50px; position: relative; }
+		/* 확인용
+		.main-menu>.menu-item:nth-child(2n){ background-color: red; } */
+		.main-menu>.menu-item>.menu-link{
+			/* display: block 은 box 크기를 맞게 지정해줌 
+			   box-sizing: border-box는 border가 삐져나오는것을 막아줌
+				 line-height: 48px; 높이 50px - 2px border 1 + 1 */
+			display: block; width: 100%; height: 100%; text-align: center;
+			box-sizing: border-box; border: 1px solid red; line-height: 48px;
+			font-size: 26px; font-weight: bold; border-left: none;
+		}
+		.main-menu>.menu-item:first-child>.menu-link{
+			border-left: 1px solid red;
+		}
+		.sub-menu{ width: 100%; position: alsolute; top: 50px; left: 0; display: none; }
+			/* 확인용: 
+			height: 50px; background-color: gray;}  */
+		.sub-menu>.menu-item{ height: 50px; }
+		.sub-menu>.menu-item>.menu-link {
+			display: block; height: 100%; border: 2px solid red;
+			font-size: 26px; font-weight: bold; text-align: center;
+			line-height: 48px; box-sizing: border-box;  margin-top: -2px;
+		}
+	</style>
+</head>
+<body>
+	<ul class="main-menu">
+		<li class="menu-item main-item1">
+			<a href="#" class="menu-link">menu1</a>
+			<ul class="sub-menu sub-menu1">
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu1-1</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu1-2</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu1-3</a>
+				</li>
+			</ul>
+		</li>
+		<li class="menu-item main-item2">
+			<a href="#" class="menu-link">menu2</a>
+			<ul class="sub-menu sub-menu2">
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu2-1</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu2-2</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu2-3</a>
+				</li>
+			</ul>
+		</li>
+		<li class="menu-item main-item3">
+			<a href="#" class="menu-link">menu3</a>
+			<ul class="sub-menu sub-menu3">
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu3-1</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu3-2</a>
+				</li>
+				<li class="menu-item">
+					<a href="#" class="menu-link">menu3-3</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+		$('.main-item1').hover(function(){
+			$('.sub-menu1').stop().slideToggle(); 
+		});
+		// hover는 function을 2번쓸 수 있다 also, on과 같이 쓸 수 없다 
+		/*
+		$('.main-item1').on('hover', function(){
+			$('.sub-menu1').show();
+		}, function(){
+			$('.sub-menu1').hide(); 
+		});
+		*/
+		$('.main-item2').hover(function(){
+			$('.sub-menu2').stop().slideToggle(); 
+		});
+		$('.main-item3').hover(function(){
+			$('.sub-menu3').stop().slideToggle(); 
+		});
+
+	</script>
+</body>
+</html>

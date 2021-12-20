@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>add_buttonsEx</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="box">
+		<button class="btn">adding buttons</button>
+	</div>
+	<script>
+		var num =1;
+	//	$('.btn').click(function(){
+	//		$('.btn').append('<button class="btn">' + ++num +'adding buttons</button>');
+	//	});
+	// 요소추가가 아닌 다큐먼트에 
+		$(document).on('clcik', '.btn', function(){
+			$('.box').append('<button class="btn">' + ++num +'adding buttons</button>');
+		});
+	</script>
+</body>
+</html>

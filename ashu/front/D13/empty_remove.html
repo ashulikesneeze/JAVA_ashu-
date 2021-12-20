@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>empty_remove</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		.box-container1, .box-container2 {
+			background: yellow; margin-top: 20px; min-height: 50px;
+		}
+	</style>
+</head>
+<body>
+	1
+	<div class="box-container1">
+		<div class="box">
+			<p>hello</p>
+			</div>
+			<button>button</button>
+		</div>
+	</div>
+	2
+	<div class="box-container2">
+		<div class="box">
+			<p>hello</p>
+			</div>
+			<button>button</button>
+		</div>
+	</div>
+	<script>
+		$('.box-container1').remove();
+		$('.box-container2').empty();
+		//empty()와 같은 결과물 
+		$('.box-container3').html('');
+	</script>
+</body>
+</html>
