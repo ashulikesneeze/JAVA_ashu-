@@ -428,6 +428,14 @@
 					</div>
 				</div>
 				<div class="theme-contents">contents</div>
+					<div class="box" id="enter">enter</div>
+					<div class="box" id="sports">sports</div>
+					<div class="box" id="car">car</div>
+					<div class="box" id="webtoon">webtoon</div>
+					<div class="box" id="economy">economy</div>
+					<div class="box" id="recipe">recipe</div>
+					<div class="box" id="game">game</div>
+					<div class="box" id="movie">movie</div>
 			</div>
 		</div>
 		<div class="contents-r-box">
@@ -498,6 +506,74 @@
 		$('.contents-l-box3 .main-category').animate({marginLeft: -750 * num3});
 		});
 	
+		//메뉴 탭 이동 
+		//메뉴 클릭
+		var menuSelector = '.contents-l-box3 .category-item';
+		$(menuSelector).click(function(e){
+			e.preventDefault();
+			$(menuSelector).children().removeClass('sel');
+			$(this).children().addClass('sel');
+			var target = $(this).data('target');
+			$('.theme-contents>div').hide();
+			$(target).show();
+
+			//이전/다음 버튼 처리
+			$('.contents-l-box3.btn-prev').show();
+			$('.contents-l-box3.btn-next').show();
+			//메뉴1이 클릭된 경우 이전 메뉴가 없기때문에 이전 버튼을 감춤
+			//.sel 한칸씩 띄어줘야 함 
+			var prevParentLength = $(menuSelector+' .sel').parent().prev().length;
+			var prevOldParentLength = $(menuSelector+' .sel').parents().prev().length;
+			var nextParentLength = $(menuSelector+' .sel').parent().next().length;
+			var nextOldParentLength = $(menuSelector+' .sel').parents().next().length;
+
+			//메뉴5이 클릭된 경우 다음 메뉴가 없기때문에 다음 버튼을 감춤
+			if(prevParentLength == 0 && preOldParentLength == 0) {
+				$('.btn-next').hide();
+			}
+		});
+	
+		//이전 버튼
+		$('.btn-prev').click(function(e){
+			e.preventDefault();
+			//이전 버튼 클릭시 같은 화면에서 이전 요소가 있는 경우
+			//메뉴 2~5, 메뉴 7~10
+			if( $(menuSelector+' .sel').parent().prev().length == 1){
+				$(menuSelector+' .sel').parent().prev().click();
+			}
+			//아전 버튼 클릭시 같은 화면에서 이전 요소가 없는 경우
+			//메뉴1, 메뉴 6
+			else{
+				//메뉴6인 경우
+				//현재 선택된 메뉴의 부모요소의 앞요소가 있는 경우
+				//현재 선택된 메뉴의 부모 요소의 앞 요소를 선택한 후, 
+				//마지막 메뉴를 선택하여 클릭
+				if($(menuSelector+' .sel').parents('.category-list').prev().length == 1){
+					$(menuSelector+' .sel')
+					.parents('.category-list').prev().children().last().click();
+					$('.main-category').animate({'margin-left':'0px'},500);
+				}
+				//메뉴1인 경우
+				//현재 선택되 메뉴의 부모요소의 앞요소가 없는 경우
+				//아무것도 안해도 됨 
+			}
+		});
+		//다음 버튼
+		$('.btn-next').click(function(e){
+			e.preventDefault();
+			if( $('.contents-l-box3 .category-item.sel').next().length == 1){
+				$('.contents-l-box3 .category-item.sel').next().click();
+			}
+			else{
+				if($('.contents-l-box3 .category-item.sel').parent().next().length == 1){
+					$('.contents-l-box3 .category-item.sel').parent().next().children().first().click();
+					var width = $('.contents-l-box3 .category-item.sel').parent().width(); 
+					$('.container-menu').animate({'margin-left':'-'+ width +'px'},500);
+				}
+			}
+		});
+		$('.menu-list:first-of-type .menu-item:first-child').click();
+
 	</script>
 </body>
 </html>

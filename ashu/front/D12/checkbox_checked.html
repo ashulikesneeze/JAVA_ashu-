@@ -15,9 +15,11 @@
 		<input type="checkbox" name="food" value="rice">rice
 	</label>
 	<div class="box"></div>
-	<script>
+	<script> 
 		var arr = [];
 		$('[name=food]').click(function(){
+			//클릭된 체크박스의 value
+			var value = $(this).val();
 			//클릭된 체크박스에 체크여부를 확인
 			if($(this).prop('checked')){
 			//체크된 상태이면 배열에 체크된 체크박스의 value를 추가

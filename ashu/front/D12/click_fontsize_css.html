@@ -4,18 +4,26 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>class_background_toggle</title>
+	<title>click_fontsize_css</title>
 	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 	<style>
-		.active{ background-color: yellow;}
-	</style> 
+		.box{
+			height: 50px;
+		}
+	</style>
 </head>
 <body>
-	<button class="btn">click</button>
+	<button class="btn">클릭</button>
+	<div class="box">안녕하세요.</div>
 	<script>
 		$('.btn').click(function(){
-			$(this).toggleClass('active');
+			console.log($('.box').css('height'));
+			$('.box').css('height','500px')
+			$('.box').css({
+				fontSize : '20px',
+				fontWeight : 'bold'
+			});
 		});
 	</script>
 </body>
-</html>
+</html> 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>rolling_to_left</title>
+	<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+	<style>
+		.container{ height: 50px; border: 1px solid black; overflow: visible;}
+		.box.box1 {background: yellow; }
+		.box.box2 {background: gray; }
+		.box.box3 {background: #0f0; }
+		.wrap-box{ width: 300%; }
+		.wrap-box::after{ clear: both; content: ''; display: block; }
+		.box{ width: calc(100% / 3); float: left; height: 50px; line-he}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="wrap-box">
+			<div class="box box1">1</div>
+			<div class="box box2">2</div>
+			<div class="box box3">3</div>
+		</div>
+	</div>
+<script>
+	var rollingId;
+	$(function(){
+		rollingId = setInterval(function(){
+			if(!)
+		})
+	})
+</script>
+</body>
+</html>

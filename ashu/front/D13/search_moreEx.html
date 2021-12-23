@@ -13,16 +13,18 @@
 			1<img src="../D2/dog.jpg" alt="dog" height="100">
 		</div>
 	</div>
-	<button class="btn">search-more</button>
+	<button class="btn">더보기</button>
 	<script>
-		var num =1;
+		var num = 1;
 		$('.btn').click(function(){
 			++num;
-			var str =
-			'<div class="box">' + num +
-				'img src="../D2/dog.jpg" alt="dog" height="100">' +'</div>';
-				$('.img-container').append(str);
+			var str = 
+			'<div class="box">' +
+				num + '<img src="../D2/dog.jpg" alt="dog" height="100">' +
+			'</div>';
+			//$(this).before(str);
+			$('.img-container').append(str);
 		});
 	</script>
 </body>
-</html>
+</html> 
