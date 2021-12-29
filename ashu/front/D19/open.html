@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>open</title>
+</head>
+<!-- a tag는 창이 넘어가면 끝이지만, 자식창으로 열면 서로 공유하고 자식창을 제어할 수 있다  -->
+	<a href="1_예제_swiper.html" target="_blank">스와이퍼 예제</a> <br>
+	<button class="btn-child">자식창 열기</button>
+	<script>
+		 $('.btn-child').click(function(){
+			 childId = window.open('1_예제_swiper.html','_blank');
+		 });
+	</script>
+</body>
+</html>
