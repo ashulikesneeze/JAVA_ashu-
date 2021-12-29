@@ -87,7 +87,7 @@ CREATE TABLE `university_ashu`.`course` (
     -- Delete : restrict / no action => 삭제, 참조 그대로 
     --          set null => 참조 null / cascade => 둘다 삭제   
     -- insert into table_name values(' ', ' ', ' ', ' ');
-    -- 또는 insert into table_name values(st_num, st_id, st_pw,...) values(' ', ' ', ' ', ' ');
+    -- 또는 insert into table_name(st_num, st_id, st_pw,...) values(' ', ' ', ' ', ' ');
 	-- 여러개를 한번에 : insert into table_name values(' ', ' ', ' ', ' '), (' ', ' ', ' ', ' ');
     -- update student set st_id = ' ', st_pw = '  ' where st_num = '  '; 
     -- update할때 workbench에서는 pk가 필수 but, Edit>Preferences>SQL Editor> Safe Updates 해지한 후 창을 끄고 다시 키면 작동 
