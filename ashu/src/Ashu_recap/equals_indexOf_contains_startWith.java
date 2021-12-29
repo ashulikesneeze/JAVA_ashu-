@@ -119,5 +119,10 @@ public class equals_indexOf_contains_startWith {
 			}
 		}
 		return false; 
+		
+		
+		
+		
+		
 	}
 }
