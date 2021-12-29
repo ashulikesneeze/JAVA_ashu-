@@ -26,6 +26,12 @@ alt +_ click click click (plural cursor)
 
 ../ 상위폴더 or ./ 현재폴더 or ctrl + space
 
+/n = Enter    /t= tap
+
+insert key: 두꺼우면 덮어쓰기
+
+F5 새고고침  F2 rename 
+
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
 
 Google fonts site : eg. nanum -> click +select this stype and copy link 

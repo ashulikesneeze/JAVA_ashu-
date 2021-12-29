@@ -21,6 +21,60 @@ github fetch -> eclipse (file -> open project ->directory)
 
   ​                  Eclipse: file -> directory 
 
+
+
+ class A {
+
+}
+
+class B extends A {
+
+public B () {
+
+생성자 super();
+
+​            this();
+
+​	}
+
+}
+
+
+
+interface : 다중 상속 가능 spring에서 클래스 형변환 overriding a lot 
+
+interface Name {
+
+// 추상메소드들;
+
+//상수;
+
+/디폴트 메소드들;
+
+}
+
+class Name implements InterfaceName {
+
+//인터페이스의 추상메소드를 overriding
+
+}
+
+
+
+collection : single data - list<className1> set<className1>
+
+Map : plural data - <key(ID:replica x), value(pw:replica o)
+
+
+
+
+
+
+
+
+
+
+
 # clone(클론)
 
 - 온라인 저장소에 있는 파일들을 내 PC로 복사(복제)
