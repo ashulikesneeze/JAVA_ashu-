@@ -1,6 +1,9 @@
 package Ashu_recap;
 
 public class method1 {
+	/* 객체 메소드  : public void method()
+	 * 클라스 메소드: public static void method()
+	 */
 
 	public static void main(String[] args) {
 	
