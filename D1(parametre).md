@@ -21,15 +21,45 @@ github fetch -> eclipse (file -> open project ->directory)
 
   ​                  Eclipse: file -> directory 
 
+  ​
+
 * Spring Framework : eclipse -> help -> Eclipse Marketplace -> sts -> 2nd 3. version
+
+  ​
 
   ctrl + N -> spring -> spring legacy -> untick use default loction / Srping MVC project -> kr.green.spring 
 
+  ​
+
   Tomcat website -> 9 version ->  core zip download -> 압축해제 -> D: Java folder로 copy/paste
+
+  ​
 
   ctrl + N -> server -> Tomcat 9 -> right click -> run as -> run on server -> finish
 
+  ​
+
   file open project -> directory -> D: spring_ashu 
+
+  ​
+
+* Window -> preference -> general -> workspace -> UTF-8
+
+  ​
+
+* https://stajun.tistory.com/ 
+
+* web.xml 파일수정 -> 32번째 줄 
+
+* home2.jsp -> <!DOCTYPE html> 위에 jsp 파일 인코딩 설정 code copy and paste 
+
+* spring gitignore website ->  copy all -> D: gitignore open with note -> paste (leave pom.xml)
+
+* website: localhost:8080/spring/ 
+
+
+
+
 
 
 
