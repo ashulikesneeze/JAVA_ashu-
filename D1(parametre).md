@@ -21,6 +21,16 @@ github fetch -> eclipse (file -> open project ->directory)
 
   ​                  Eclipse: file -> directory 
 
+* Spring Framework : eclipse -> help -> Eclipse Marketplace -> sts -> 2nd 3. version
+
+  ctrl + N -> spring -> spring legacy -> untick use default loction / Srping MVC project -> kr.green.spring 
+
+  Tomcat website -> 9 version ->  core zip download -> 압축해제 -> D: Java folder로 copy/paste
+
+  ctrl + N -> server -> Tomcat 9 -> right click -> run as -> run on server -> finish
+
+  file open project -> directory -> D: spring_ashu 
+
 
 
  class A {
