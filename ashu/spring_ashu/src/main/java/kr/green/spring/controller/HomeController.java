@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import kr.green.spring.vo.MemberVO;
 //@Controller가 있어야 URL을 분석하여 처리                                                           
 @Controller 
 public class HomeController {
@@ -23,5 +25,58 @@ public class HomeController {
 		
 		return mv;
 	}
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public ModelAndView testGet(ModelAndView mv, Integer num, String name) {	
+		mv.setViewName("home2");
+		mv.addObject("serverTime", "데이터");
+		System.out.println("/test : num = " + num + ",name = " + name );
+		return mv;
+	}
+	@RequestMapping(value = "/test/form", method = RequestMethod.GET)
+	public ModelAndView testFormGet(ModelAndView mv, Integer num, String name) {	
+		mv.setViewName("home2");
+		mv.addObject("serverTime", "데이터");
+		System.out.println("/test/form:get : num = " + num + ",name = " + name );
+		return mv;
+	}
 	
+	//console로 나오는 값은 같으나, 실행했을시 POST값은 URL이 동일하게 뜨고 GET URL이 다르게 뜬다 
+	@RequestMapping(value = "/test/form", method = RequestMethod.POST)
+	public ModelAndView testFormPost(ModelAndView mv, Integer num, String name) {	
+		mv.setViewName("home2");
+		mv.addObject("serverTime", "데이터");
+		System.out.println("/test/form:post : num = " + num + ",name = " + name );
+		return mv;
+	}
+	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	public ModelAndView test2Get(ModelAndView mv, Integer num1, Integer num2) {	
+		System.out.println("/test2 : num1 = " + num1 +", num2 =" + num2);
+		Integer res = null; 
+	    if(num1 != null && num2 != null) {
+	    	res = num1 + num2;
+	    }
+	    mv.addObject("result", res);
+	    mv.addObject("num1", num1);
+	    mv.addObject("num2", num2);
+		mv.setViewName("test2");
+		return mv;
+	}
+	@RequestMapping(value = "/test3", method = RequestMethod.GET)
+	public ModelAndView test3Get(ModelAndView mv, MemberVO member) {	
+		System.out.println("/test3 :" + member);
+		mv.setViewName("test3");
+		return mv;
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView loginGet(ModelAndView mv) {	
+		System.out.println("/login:get :");
+		mv.setViewName("login");
+		return mv;
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView loginPost(ModelAndView mv, MemberVO member) {	
+		System.out.println("/login:post :" + member);
+		mv.setViewName("login");
+		return mv;
+	}
 }
