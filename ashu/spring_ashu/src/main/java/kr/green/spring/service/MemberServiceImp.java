@@ -13,7 +13,7 @@ public class MemberServiceImp implements MemberService {
 	MemberDAO memberDao; 
 	
 	@Override
-	public MemberVO login(MemberVO member) {
+	public MemberVO signup(MemberVO member) {
 		if(member == null || member.getMe_id() == null)
 			return null;
 		MemberVO user = memberDao.getMember(member.getMe_id());
