@@ -16,14 +16,10 @@ public class MemberServiceImp implements MemberService {
 	public MemberVO login(MemberVO member) {
 		if(member == null || member.getMe_id() == null)
 			return null;
-		MemberVO user = memberDao.getMember(member.getMe_id())
+		MemberVO user = memberDao.getMember(member.getMe_id());
+		System.out.println(user);
 		return null;
 	}
 
-	@Override
-	public MemberVO login(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
