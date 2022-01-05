@@ -6,7 +6,7 @@
 
 ​           vo(class)                                       vo(class)                                         vo(class)
 
-
+ 
 
 //DAO : data access object 
 
@@ -101,7 +101,9 @@ return "/main/home"; 수정해줌
 
 ![](D:\JAVA_ashu\JAVA_ashu-\spring_ashu\controller.PNG)
 
-오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 작동해 본 후 작동이 되면 다시 원위치로! 
+
+
+"오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 작동해 본 후 작동이 되면 다시 원위치로!" 
 
 
 
@@ -139,9 +141,7 @@ return "/main/home"; 수정해줌
 
 - sevice 패키지 선택 후 ctrl + N 후 class 에서 MemberServiceImp 생성 후 
 
-
-- public class MemberServiceImp implements MemberService{}
-
+  public class MemberServiceImp implements MemberService{}
 
 - dao 패키지 선택 후 ctrl + N 후 interface 타입 후 MemberDAO 생성 
 
