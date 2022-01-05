@@ -11,3 +11,10 @@
 6.서비스는 다오에게 회원 정보를 주면서 회원 가입하라고 시킴 
 7.매퍼에서 회원가입을 위한 insert query 작성
 8.테스트하여 확인 
+
+
+http://www.tomonari.co.kr/#a
+
+https://londonslacks.com/
+
+
