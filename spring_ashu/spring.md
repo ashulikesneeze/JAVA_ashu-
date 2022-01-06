@@ -12,7 +12,7 @@
 
 //vo : value object 
 
-
+"browser setting: window > preferences > web browser > use external > chrome"
 
 server 항목을 볼 수 있게 (1server에 1 project)**  *localhost:8080/test1*
 
@@ -121,7 +121,7 @@ return "/main/home"; 수정해줌
 
 - 예시복사 후 </beans>위에 붙여넣기 한 후 수정 
 
-              value="jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul">
+         value="jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul">
     </property>
     <property name="username" value="root"></property>
     <property name="password" value="cjgreen"></property>
@@ -187,12 +187,12 @@ return "/main/home"; 수정해줌
 
 - @RequestMapping(value = "/login", method = RequestMethod.POST)
 
-	public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
-		System.out.println(user);
-		mv.setViewName("/member/login");
-		return mv;
-	}
-"데이터를 전송하면 반드시 sysout으로 콘솔에서 확인" 
+  public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
+  	System.out.println(user);
+  	mv.setViewName("/member/login");
+  	return mv;
+  }
+  "데이터를 전송하면 반드시 sysout으로 콘솔에서 확인" 
 
 sysout 지우고
 
