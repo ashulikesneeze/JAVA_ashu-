@@ -1,5 +1,7 @@
 package kr.green.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class BoardController {
 	@RequestMapping(value="/list")
 	//@RequestMapping(value="/board/list")
 	public ModelAndView boardList(ModelAndView mv) {
+		//등록된 모든 게시글을 보는 작업
+				List<BoardVO> list = boardService.getBoardList("일반");
+				mv.addObject("list",list);
+				System.out.println(list);
 		mv.setViewName("/board/list");
 		return mv;
 	}
@@ -40,6 +46,33 @@ public class BoardController {
 		System.out.println(board);
 		boardService.registerBoard(board);
 		mv.setViewName("/board/register");
+		return mv;
+	}
+	
+	@RequestMapping(value="/detail")
+	public ModelAndView boardDetail(ModelAndView mv, Integer bd_num) {
+		mv.setViewName("/board/detail"); 
+		//게시글 번호 확인 
+		//System.out.println("게시글 번호 : " + bd_num);
+		//게시글 = boardService.게시글가져오기(게시글번호);
+		BoardVO board = boardService.getBoard(bd_num); 
+		//가져온 게시글 확인 
+		//System.out.println(board);
+		//화면에게 게시글을 전달 
+		mv.addObject("board", board);
+		return mv;
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public ModelAndView boardDeleteGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+		//게시글 번호 확인 
+		//System.out.println("게시글 번호 : " + bd_num);
+		//로그인한 유저 정보를 확인  
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		//System.out.println(user);
+		//서비스에게 게시글 번호와 로그인한 유저 정보를 주면서 게시글 삭제하라고 시킴 
+		boardService.deleteBoard(bd_num, user);
+		mv.setViewName("redirect/board/list");
 		return mv;
 	}
 }

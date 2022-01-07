@@ -11,4 +11,18 @@
 	ifnull(max(bd_num),0)+1, 'N'
 	from board;
 	</insert>	
+	<select id="getBoardList" resultType="kr.green.spring.vo.BoardVO">
+	<!-- 코드가 맞는지 틀리는지 확인하려면 쿼리 복사 후 workbench에서
+	 #{type}부분을 bd_type = '일반'으로 바꿔준 후  -->
+	select * from board where bd_type = #{type} and bd_del = 'N' order by bd_num desc
+	</select>
+	<select id="getBoard" resultType="kr.green.spring.vo.BoardVO">
+	select * from board where bd_num = #{bd_num} and bd_del = 'N'
+	</select>
+	<update id="deleteBoard">
+	update board set
+	bd_del ='Y',
+	bd_del_date = now()
+	where bd_num = #{bd_num}
+	</update>
 </mapper>

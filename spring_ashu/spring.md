@@ -16,6 +16,8 @@
 
 server 항목을 볼 수 있게 (1server에 1 project)**  *localhost:8080/test1*
 
+eclipse에서 project만들때 ctrl+N > spring > spring legacy project > spring MVC project 
+
 1. window > showView > other > server > open 
 2. ctrl + N  server Apache Tomcat 9 
 3. package  선택 right click -> run as -> run on server -> localhost 선택후 server한개 선택
@@ -151,11 +153,13 @@ return "/main/home"; 수정해줌
   없을경우 src>main>resources>mappers 로 생성 
 
 
-- mappers 패키지에서 cntrl + N 에서 xml 타입 후 MemberMapper.xml 생성 
+-  root-context.xml 파일에서 이름 맞춤뒤  여기에 블로그에서 mapper 설정 
 
-​       (root-context.xml 파일에서 이름 맞춤) 블로그에서 예시쪽에서 복붙 후 코드 수정 
+  예시쪽에서 복붙 후 코드 수정 
 
-​        <mapper namespace="kr.green.test1.dao.MemberDAO">
+- mappers 패키지에서 cntrl + N 에서 xml 타입 후 MemberMapper.xml 생성 및 복붙 
+
+    <mapper namespace="kr.green.test1.dao.MemberDAO">
 
 "tiles 에서 에러가 날경우 페이지 거의 밑 쪽으로 가서 확인함"
 
@@ -170,7 +174,7 @@ return "/main/home"; 수정해줌
 
 **VO class 만들기** : *비닐봉투와 같은 역할* 
 
-- vo 패키지 먼저 만든 후, (.vo) class를 맨 뒤에 VO를 붙여 만든다 
+- vo 패키지(.vo) 먼저 만든 후,  class 이름 맨 뒤에 VO를 붙여 만든다 
 
 
 - table을 보고 객체 만듬 private String me_id; 등등
@@ -180,6 +184,18 @@ return "/main/home"; 수정해줌
 
 
 - login.jsp : name 에 맞는 객체 이름으로 넣어주고 
+
+
+
+
+**Service package** > service (Interface) > service(class)Imp : implements .. & @Service
+
+**Dao package** > dao(interface )
+
+
+
+controller 에서 loginGet을 되는지 안되는지 확인 
+
 
 
 - controller: 복붙후 GET을 POST로 바꿔주고 

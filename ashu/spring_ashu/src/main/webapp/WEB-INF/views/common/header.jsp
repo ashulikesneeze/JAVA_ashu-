@@ -23,7 +23,7 @@
 	    <!-- 로그인되어 있으면 => 세션에 user가 있으면  => user가 null이 아니면 -->
 	    <c:if test="${user != null }">
 		    <li class="nav-item">
-		      <a class="nav-link" href="<%=request.getContextPath()%>">로그아웃</a>
+		      <a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
 		    </li>
     	 </c:if>
     	 <li class="nav-item">
