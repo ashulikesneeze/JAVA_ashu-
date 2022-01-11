@@ -1,17 +1,4 @@
-**setViewName**("/경로/파일명");
-
-setViewName("/redirect:/이동할url");
-
-- 이전에 전달받은 정보를 이동할 url에 전송할 필요가 없으면 redirect
-
-setViewName("/forward:/이동할url");
-
-- 이전에 전달받은 정보를 이동할 url에 전송할 필요가 있으면 forward
-
-
-
-
-새 URL에 작업을 하는 경우
+### 새 URL에 작업을 하는 경우
 
 1.컨트롤러에 새 URL을 담당하는 메소드를 생성
 
@@ -40,3 +27,35 @@ setViewName("/forward:/이동할url");
 
 - 7번에 등록된 메소드와 이름이 같게 id를 지정 
 
+
+
+
+**setViewName****("/경로/파일명");
+
+setViewName("/redirect:/이동할url");
+
+- 이전에 전달받은 정보를 이동할 url에 전송할 필요가 없으면 redirect
+
+setViewName("/forward:/이동할url");
+
+- 이전에 전달받은 정보를 이동할 url에 전송할 필요가 있으면 forward
+
+
+
+1. 멤버 **interceptor** 만들고 
+
+
+2. servlet-context.xml 에 두 코드 
+
+- <beans:bean id="memberInterceptor" 
+
+	class="kr.green.spring.interceptor.MemberInterceptor"></beans:bean>
+
+- <interceptor>
+
+	        <mapping path="/board.register"/>
+	         <mapping path="/board.modify"/>
+	          <mapping path="/board.delete"/>
+	        <beans:ref bean="memberInterceptor"/>
+	    </interceptor>
+3. 실행 테스트 해보기 

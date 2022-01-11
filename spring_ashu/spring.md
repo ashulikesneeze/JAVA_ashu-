@@ -12,6 +12,8 @@
 
 //vo : value object 
 
+http://www.tomonari.co.kr/#a
+
 "browser setting: window > preferences > web browser > use external > chrome"
 
 server 항목을 볼 수 있게 (1server에 1 project)**  *localhost:8080/test1*
@@ -37,21 +39,10 @@ Window > preferences > workspace > text file encoding > UTF-8
    src > main > webapp > web-inf> views > home.jsp
    <%@ page session="false" %> 지우고 복붙 
 
+   <!DOCTYPE html> 추가 
 
 
-**Tiles 연동** *템플릿 설정하기* 
-
-1. 타일즈 의존성 추가 (pom.xml) : 젤 밑 target 밑에
-
-   - 5.1.8. version 
-
-
-   - 15번째 줄 <org.apache.tiles-version>3.0.8</org.apache.tiles-version> 복붙
-
-
-   - pom.xml 파일 안 `<dependencies>` 태그 안에 의존성 추가 : </dependencies> 앞에 복붙\
-
-     ​
+​
 
 2. View Resolver 등록 (servlet-context.xml)  : controller에서 
 
@@ -63,9 +54,23 @@ Window > preferences > workspace > text file encoding > UTF-8
 
    src > main > webapp > web-inf > spring > appServlet > 
 
-    "kr.green.test1.*" 로 바꿈 
+   젤 밑 base-package 부분  "kr.green.test1.controller"를  "kr.green.test1.*" 로 바꿈 
 
    servlet-context.xml에 다음 코드를 추가 복붙 
+
+   ​
+
+   ​
+
+   **Tiles 연동** *템플릿 설정하기* 
+
+   1. 타일즈 의존성 추가 (pom.xml) : 젤 밑 target 밑에
+      - 5.1.8. version 
+
+   - 15번째 줄 <org.apache.tiles-version>3.0.8</org.apache.tiles-version> 복붙
+
+
+   - pom.xml 파일 안 `<dependencies>` 태그 안에 의존성 추가 : </dependencies> 앞에 복붙\
 
    ​
 
@@ -87,7 +92,7 @@ WEB-INF > spring 폴더에 tiles-def.xml 파일 생성 후 다음 코드 붙여�
 
 빨간줄 지워줌  & container 지움 
 
-
+첨부파일 (footer, header, head) 다운로드 받아 복붙 
 
 - <h1>헤더</h1>
 
@@ -101,13 +106,29 @@ WEB-INF > spring 폴더에 tiles-def.xml 파일 생성 후 다음 코드 붙여�
 
 return "/main/home"; 수정해줌 
 
+/main/home 으로 접속 하여 테스트 한 후, value = "/"로 바꾸어줌 
+
 ![](D:\JAVA_ashu\JAVA_ashu-\spring_ashu\controller.PNG)
 
 
 
-"오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 작동해 본 후 작동이 되면 다시 원위치로!" 
+"오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 (baseLayout F2 & tiles-def.xml)
+
+ 작동해 본 후 작동이 되면 다시 원위치로! 특히, baseLayout.jsp와 관련하여 나는 에러" 
 
 
+
+### 각종 패키지 생성 
+
+- Service package
+
+
+- Dao package
+
+
+- VO package 
+
+  ​
 
 # **DB연동하기** 
 
@@ -128,6 +149,8 @@ return "/main/home"; 수정해줌
     <property name="username" value="root"></property>
     <property name="password" value="cjgreen"></property>
     </bean> 
+- src/main/resources에서 mappers 폴더 생성 
+
 - mapper 설정 복 붙 후 패키지 이름 수정 
 
   <mybatis-spring:scan base-package="kr.green.test1.dao"/>
@@ -195,8 +218,6 @@ return "/main/home"; 수정해줌
 
 
 controller 에서 loginGet을 되는지 안되는지 확인 
-
-
 
 - controller: 복붙후 GET을 POST로 바꿔주고 
 

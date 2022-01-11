@@ -57,3 +57,10 @@ ALTER TABLE `file` ADD CONSTRAINT `FK_board_TO_file_1` FOREIGN KEY (
 REFERENCES `board` (
 	`bd_num`
 );
+
+
+select * from member;
+
+select * from board where bd_type = '일반' order by bd_num desc;
+
+select * from community.board;
