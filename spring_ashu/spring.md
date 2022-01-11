@@ -149,16 +149,22 @@ return "/main/home"; 수정해줌
     <property name="username" value="root"></property>
     <property name="password" value="cjgreen"></property>
     </bean> 
+
+
+## DB연동 테스트
+
 - src/main/resources에서 mappers 폴더 생성 
 
-- mapper 설정 복 붙 후 패키지 이름 수정 
+  MemberMapper.xml 파일 생성 후 MyBatis 연동 확인하기 밑 코드 복 붙 후 
 
   <mybatis-spring:scan base-package="kr.green.test1.dao"/>
+
+  이름 바꾸고 <select> email 부분 지워주기 
 
 
 - controller 위에 ctrl + N  후 package 선택 후 controller 지우고 dao
 
-   & service 붙여 2개의 패키지 생성 
+   & service & vo 붙여 3개의 패키지 생성 
 
 
 - sevice 패키지 선택 후 ctrl + N 후 interface 타입 후 MemberService 생성 
@@ -166,33 +172,11 @@ return "/main/home"; 수정해줌
 
 - sevice 패키지 선택 후 ctrl + N 후 class 에서 MemberServiceImp 생성 후 
 
-  public class MemberServiceImp implements MemberService{}
+  public class MemberServiceImp implements MemberService{
 
 - dao 패키지 선택 후 ctrl + N 후 interface 타입 후 MemberDAO 생성 
 
-
-- src/main/resources에서 cntl +N 에서 folder 후 mappers (root-context.xml 파일에서 이름 맞춤)
-
-  없을경우 src>main>resources>mappers 로 생성 
-
-
--  root-context.xml 파일에서 이름 맞춤뒤  여기에 블로그에서 mapper 설정 
-
-  예시쪽에서 복붙 후 코드 수정 
-
-- mappers 패키지에서 cntrl + N 에서 xml 타입 후 MemberMapper.xml 생성 및 복붙 
-
-    <mapper namespace="kr.green.test1.dao.MemberDAO">
-
-"tiles 에서 에러가 날경우 페이지 거의 밑 쪽으로 가서 확인함"
-
-- views>member폴더 생성후 login.jsp 생성 
-
-
-- views> layout> baseLayout.jps 에 <title> 밑에 bootstrap 4줄 복붙 
-
-"ctrl+ space는 자동 완성 코드"   
-
+  ​
 
 
 **VO class 만들기** : *비닐봉투와 같은 역할* 
@@ -211,9 +195,259 @@ return "/main/home"; 수정해줌
 
 
 
-**Service package** > service (Interface) > service(class)Imp : implements .. & @Service
+컨트롤러에 멤버변수로 MemberService 추가 @Autowired 이용 
 
-**Dao package** > dao(interface )
+서비스임프에 @Autowired
+
+​                           MemberDAO memberDao; 
+
+​                        & @Service 추
+
+**서버를 재가동하여 에러가 안나는지 테스트** 
+
+
+
+### 컨트롤러/서비스/다오/메퍼에 샘플 코드 추가 및 테스트 
+
+DB에 샘플 데이트 추가 
+
+- 컨트롤러 샘플 코드
+
+
+- ```
+  @RequestMapping(value= "/")
+  public ModelAndView openTilesView(ModelAndView mv) throws Exception{
+      mv.setViewName("/main/home");
+      //아래 코드는 연동 확인후 지울 코드
+      //qwe는 샘플 데이터에 있는 회원아이디
+      MemberVO user = memberService.test("qwe");
+      System.out.println(user);
+      return mv;
+  }
+  ```
+
+
+- 서비스 샘플 코드
+
+  - ```
+    MemberVO test(String id);
+    ```
+
+- 서비스임플 샘플 코드
+
+  - ```
+    @Override
+    public MemberVO test(String id) {
+        return memberDao.test(id);
+    }
+    ```
+
+- 다오 샘플 코드
+
+  - ```
+    MemberVO test(@Param("id")String id);
+    ```
+
+- 매퍼 샘플 코드
+
+  - ```
+      <select id="test" resultType="kr.green.green.vo.MemberVO">
+      	select * from member where me_id = #{id}
+      </select>
+      ```
+    ```
+
+    ```
+
+
+
+### 8. 회원가입 기능 구현(비밀번호 암호화 적용)
+
+- [github.com/st8324/Docs](https://github.com/stajun2/java_jik/blob/main/5.SPRING/github.com/st8324/Docs) 참고
+
+  header.jsp 회원가입 링크 추가 
+
+  컨트롤러에서 회원가입 화면을 보여줄수 있는 메소드를 추가 
+
+  - /signup에 GET방식
+  - 보여줄 화면은 /member/signup.jsp로 설정 
+
+  회원가입 화면파일을 생성
+
+  -  회원가입 화면을 구성
+
+  컨트롤러에 회원가입을 처리하는 메소드를 추가 
+
+  - /signup에 POST방식
+  - 일을 다 처리한 후, 메인페이지(/)로 이동을 시킴 
+  - 회원가입이 정상적으로 진행되지 않으면 회원가입페이지(/signup)으로 이동
+
+  컨트롤러에 화면에서 전달한 회원정보를 받아서 확인 
+
+  - 매개변수를 추가 (ModelAndView mv, MemberVO user)
+
+    그리고 확인 System.out.println(user);
+
+  - 생일과 관련해서 에러가 발생할 수 있음
+
+    - 원인 : 화면에서는 yyyy-mm-dd로 된 문자열을 전송하는데 생일이 Date클래스로 되어 있으면 자동으로 변환이 안됨. String이 Date로 형변환이 안됨.
+
+    - 해결방안 : setMe_birth(String date)로 setter를 수정하여 문자열로 된 날짜를 Date로 변환하는 코드를 작성해야 함
+
+    - ```
+      public void setMe_birth(String me_birth) {
+          SimpleDateFormat format;
+          try {
+              format = new SimpleDateFormat("yyyy-MM-dd");
+              this.me_birth = format.parse(me_birth);
+          } catch (ParseException e) {
+              e.printStackTrace();
+          }
+      }
+      ```
+
+  - 화면에 input tag/textarea tag/select tag 등에 name을 MEmverVO의
+
+    매개변수와 같게 설정 
+
+  컨트롤러에서 회원정보를 서비스에게 주면서 회원가입하라고 시킴 
+
+  -  이때 서비스는 회원가입 진행 후 가입이 성공했는지 아닌지 컨트롤러에게 
+
+    알려줌(리턴타입)
+
+  서비스에 회원가입 메소드 추가 
+
+  - 컨트롤러에서 에러나는 부분 마이스 호버 create method...
+
+  서비스 임플에 회원가입 기능을 구현 
+
+  - 비밀번호 암호화을 함 
+  - 다오에게 회원가입 정보를 전달하면서 가입하라고 시킴 
+
+  다오에 회원가입 메소드 추가 
+
+  - 서비스임플에서 에러나는 부분 호버 후 create method...
+  - @Param("이름")을 매개변수 앞에 추가 
+
+  매퍼에 쿼리문 구현 
+
+  - id에 다오에 추가한 메소드명을 입력
+
+  - 쿼리문 구현
+
+    매개변수로 넘어오는 값은 #{}를 이용하고, 넘겨주는 값이 정수나 문자열이 아니면 #{객체명.멤버변수명}으로 호출
+
+    ​
+
+#### 로그인 기능 구현(Interceptor를 이용하여 로그인 유지 적용)
+
+https://github.com/st8324/Docs/blob/master/spring%20framework/Interceptor%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EC%9C%A0%EC%A0%80%20%EC%A0%95%EB%B3%B4%20%EC%84%B8%EC%85%98%EC%97%90%20%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0.md
+
+* servlet-context 
+
+    <mapping path="/login"/>
+
+header.jsp에 링크 추가 
+
+컨트롤러에서 메소드 추가 및 구현 
+
+로그인 화면 구성 : form tag & name 설정
+
+로그인 시도시 컨트롤러에서 회원정보가 잘 오는지 확인
+
+서비스와 서비스 임플에 코드를 구현 : 비밀번호를 확인 
+
+다오에 메소드 추가 
+
+매퍼에 쿼리문 추가 : resultType 설정 시 오타 조심 
+
+문서 참고하여 로그인 유지 
+
+로그인 시 화면에서 로그인 메뉴와 회원가입 메뉴 안보이게 처리
+
+로그인 시 화면에서 로그아웃 메뉴 보이도록 처리 
+
+
+
+
+
+
+
+### 에러가 나는 경우
+
+1. 에러 내용에 다음이 들어간 경우
+
+   - ```
+     Error creating bean with name 'homeController': Unsatisfied dependency expressed through field 'memberService';
+     ```
+
+   - 경우1 : MemberServiceImp에 @Service를 빼먹은 경우
+
+   - 경우2 : servlet-context.xml에 base-package를 잘못 설정한 경우
+
+2. 에러 내용에 다음이 들어간 경우
+
+   - ```
+     Error creating bean with name 'memberServiceImp': Unsatisfied dependency expressed through field 'memberDao'
+     ```
+
+   - 경우1 : root-context.xml에 mybatis-spring:scan base-package를 잘못 설정한 경우
+
+   - 경우2 : MemberDAO를 클래스로 만든 경우
+
+3. 에러 내용에 다음이 들어간 경우
+
+   - ```
+     Invalid bound statement (not found): kr.green.green.dao.MemberDAO.test
+     ```
+
+   - 경우1 : MemberMapper.xml에 namespace에 오타가 있는 경우
+
+   - 경우2 : MemberMapper.xml에 id에 오타가 있는 경우
+
+   - 경우3 : mappers 폴더의 위치가 잘못된 경우
+
+4. 에러 내용에 다음이 들어간 경우
+
+   - ```
+     Could not resolve type alias 'kr.green.green.vo.MemberVO2'.  Cause: java.lang.ClassNotFoundException: Cannot find class: kr.green.green.vo.MemberVO2
+     ```
+
+   - 경우 : MemberMapper.xml에 resultType에 오타가 있는 경우
+
+5. xml 파일과 관련된 에러 발생후 올바르게 수정했는데 계속 에러나는 경우
+
+   - 원인 : 수정된 내용이 반영이 제대로 안되서
+   - 해결방안 : 프로젝트 선택 후 Alt + F5를 누름
+
+6. 에러 내용에 다음이 들어간 경우
+
+   - ```
+     Could not resolve resource location pattern [classpath:mappers/**/*Mapper.xml]: class path resource [mappers/] cannot be resolved to URL because it does not exist
+     ```
+
+   - 경우 : mappers 폴더 위치가 src/main/resources가 아니거나 폴더이름에 오타가 있는 경우
+
+7. 404 에러 중 콘솔 창에 다음 경고가 뜨는 경우
+
+   - ```
+     WARN : org.springframework.web.servlet.PageNotFound - No mapping for GET /green/login
+     ```
+
+   - 경우1 : 컨트롤러에 URL을 담당하는 메소드를 만들지 않은 경우
+
+   - 경우2 : 새 컨트롤러에 메소드를 제대로 만들었지만 컨트롤러 위에 @Controller를 안한 경우
+
+8. 405 에러 중 콘솔 창에 다음 경고가 뜨는 경우
+
+   - ```
+     Request method 'POST' not supported
+     ```
+
+   - 경우 : 컨트롤러에 URL 중 POST를 담당하는 메소드를 만들지 않은 경우
+
+
 
 
 
@@ -232,12 +466,6 @@ controller 에서 loginGet을 되는지 안되는지 확인
   "데이터를 전송하면 반드시 sysout으로 콘솔에서 확인" 
 
 sysout 지우고
-
- *@Autowired*
-
-	MemberService memberService; 
-
-MemberServiceImp로 가서 @Service 넣어줌 
 
 
 
@@ -265,6 +493,19 @@ MemberVO dbUser = memberDao.getMember(user.getMe_id());
 
 
 
+
+- views>member폴더 생성후 login.jsp 생성 
+
+
+- views> layout> baseLayout.jps 에 <title> 밑에 bootstrap 4줄 복붙 
+
+
+
+
+
+"ctrl+ space는 자동 완성 코드"   
+
+"tiles 에서 에러가 날경우 페이지 거의 밑 쪽으로 가서 확인함"
 
 
 
