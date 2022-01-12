@@ -35,42 +35,38 @@ eclipse에서 project만들때 ctrl+N > spring > spring legacy project > spring 
 2.STS 인코딩 설정
 Window > preferences > workspace > text file encoding > UTF-8 
 
-3. jsp 파일 인코딩 설정
-   src > main > webapp > web-inf> views > home.jsp
-   <%@ page session="false" %> 지우고 복붙 
+3.jsp 파일 인코딩 설정
 
-   <!DOCTYPE html> 추가 
+src > main > webapp > web-inf> views > home.jsp
+<%@ page session="false" %> 지우고 복붙 
+
+<!DOCTYPE html> 추가 
 
 
-​
 
-2. View Resolver 등록 (servlet-context.xml)  : controller에서 
+**Tiles 연동** *템플릿 설정하기* 
 
-   ​
+1. 타일즈 의존성 추가 (pom.xml) : 젤 밑 target 밑에
+   - 5.1.8. version 
 
-   spring_ashutest > src/main/java > kr.green.test1.controller로 이름 바꿔줌 
-
-   ​
-
-   src > main > webapp > web-inf > spring > appServlet > 
-
-   젤 밑 base-package 부분  "kr.green.test1.controller"를  "kr.green.test1.*" 로 바꿈 
-
-   servlet-context.xml에 다음 코드를 추가 복붙 
-
-   ​
-
-   ​
-
-   **Tiles 연동** *템플릿 설정하기* 
-
-   1. 타일즈 의존성 추가 (pom.xml) : 젤 밑 target 밑에
-      - 5.1.8. version 
-
-   - 15번째 줄 <org.apache.tiles-version>3.0.8</org.apache.tiles-version> 복붙
+- 15번째 줄 <org.apache.tiles-version>3.0.8</org.apache.tiles-version> 복붙
 
 
    - pom.xml 파일 안 `<dependencies>` 태그 안에 의존성 추가 : </dependencies> 앞에 복붙\
+
+
+
+
+
+**View Resolver 등록 (servlet-context.xml)**  
+
+spring_ashutest > src/main/java > kr.green.test1.controller로 이름 바꿔줌 
+
+src > main > webapp > web-inf > spring > appServlet > 
+
+젤 밑 base-package 부분  "kr.green.test1.controller"를  "kr.green.test1.*" 로 바꿈 
+
+servlet-context.xml에 다음 코드를 추가 복붙 
 
    ​
 
@@ -92,6 +88,13 @@ WEB-INF > spring 폴더에 tiles-def.xml 파일 생성 후 다음 코드 붙여�
 
 빨간줄 지워줌  & container 지움 
 
+타이틀 밑에 복붙 (head다운로드받은거)
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 첨부파일 (footer, header, head) 다운로드 받아 복붙 
 
 - <h1>헤더</h1>
@@ -109,12 +112,6 @@ return "/main/home"; 수정해줌
 /main/home 으로 접속 하여 테스트 한 후, value = "/"로 바꾸어줌 
 
 ![](D:\JAVA_ashu\JAVA_ashu-\spring_ashu\controller.PNG)
-
-
-
-"오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 (baseLayout F2 & tiles-def.xml)
-
- 작동해 본 후 작동이 되면 다시 원위치로! 특히, baseLayout.jsp와 관련하여 나는 에러" 
 
 
 
@@ -370,11 +367,104 @@ header.jsp에 링크 추가
 
 
 
+10. 로그아웃 기능 구현 
+
+  로그아웃 링크 추가 
+
+  컨트롤러에 로그아웃 코드 구현 
+
+  ​
+
+11. ##### 인터셉터를 이용하여 회원만 게시글 등록/수정/삭제가 되도록 처리
+
+- github.com/st8324/Docs
+- 다음 URL에 대해 회원만 접근하도록 인터셉터를 생성 후 처리(MemberInterceptor)
+  - /board/register
+  - /board/modify
+  - /board/delete
+
+12. ##### 인터셉터를 이용하여 비회원만 로그인/회원가입이 되도록 처리
+
+- 다음 URL에 대해 로그인 하지않은 비회원만 접근하도록 인터셉터를 생성 후 처리(GuestInterceptor)
+  - /login
+  - /signup 
+
+13. #### 게시글 리스트 확인 구현 
+
+- URL:/board/list
+
+- 게시글 링크 등록
+
+  header.jsp에서  <c:if>  안에 넣으면 안됨 회원과 비회원 다 볼 수 있기 때문에   
+
+  	<li class="nav-item">
+  	        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시글</a>
+  	      	</li>
+
+- **컨트롤러,서비스,서비스임플,다오,매퍼 만들고** 
+
+  @Controller 추가 
+
+  imp @Service 추가 
+
+  mapper에서 멤버매퍼 복붙 후 보드매퍼로 한 후 코드 지우고 
+
+  <mapper namespace="spring.green.green.dao.BoardDAO">
+
+- **연결부분** 
+
+  - Autowired를 이용하여 멤버변수 설정 
+    - 컨트롤러에 멤버변수로 서비스를 설정
+    - 서비스임플에 멤버변수로 다오를 설정 
+
+
+  - 컨트롤러에 게시글 리스트 확인하는 메소드 등록 및 구현 
+
+    List<BoardVO> list; 한 후 보드VO 클래스 만들고 
+
+    서비스에게 일을 시킨다 
+
+    List<BoardVO> list; boardService.getBoardList();  create 클릭 저장 하고
+
+    확인 후 주석처리 
+
+    System.out.println(list);
+
+  - 서비스와 서비스 임플에 게시글 가져오는 메소드 등록 및 구현 
+
+  - 다오와 매퍼에 게시글 가져오는 메소드 등록 및 쿼리문 작성 
+
+
+- 확인 
 
 
 
+
+#### 14.게시글 상세확인 
+
+- /board/detail 
+
+- 게시글 리스트에서 게시글 제목 링크를 수정 
+
+- 컨트롤러에서 해당 메소드 처리하는 코드 등록 및 구현
+
+- 서비스/서비스 임플에서 메소드 등록 및 구현 
+
+- 다오/매퍼에서 메소드 등록 및 구현 
+
+- 게시글 상세 화면 구현 
+
+  ​
 
 ### 에러가 나는 경우
+
+
+
+"오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 (baseLayout F2 & tiles-def.xml)
+
+ 작동해 본 후 작동이 되면 다시 원위치로! 특히, baseLayout.jsp와 관련하여 나는 에러" 
+
+
 
 1. 에러 내용에 다음이 들어간 경우
 

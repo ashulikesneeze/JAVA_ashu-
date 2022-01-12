@@ -46,4 +46,27 @@
 	    </interceptor>
 	</interceptors>
 	
+	<beans:bean id="memberInterceptor" 
+	class="spring.green.green.interceptor.MemberInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/register"/>
+			<mapping path="/board/modify"/>
+	        <mapping path="/board/delete"/>
+	        <beans:ref bean="memberInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id="guestInterceptor" 
+	class="spring.green.green.interceptor.GuestInterceptor"></beans:bean>
+	
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/login"/>
+	         <mapping path="/signup"/>
+	        <beans:ref bean="guestInterceptor"/>
+	    </interceptor>
+	</interceptors>
+	
 </beans:beans>

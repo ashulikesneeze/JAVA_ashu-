@@ -41,6 +41,7 @@ public class BoardVO {
 	String str = format.format(bd_reg_date);
 		return str;
 	}
+	
 	public void setBd_reg_date(Date bd_reg_date) {
 		this.bd_reg_date = bd_reg_date;
 	}
