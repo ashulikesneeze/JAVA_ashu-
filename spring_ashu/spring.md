@@ -444,17 +444,212 @@ header.jsp에 링크 추가
 
 - /board/detail 
 
-- 게시글 리스트에서 게시글 제목 링크를 수정 
+  컨트롤러에 추가 
+
+  	@RequestMapping(value="/board/detail", method=RequestMethod.GET)
+  	public ModelAndView boardDetailGet(ModelAndView mv) {	
+  		mv.setViewName("/board/detail");
+  		return mv;
+  	}
+  후 detail.jsp 만든후 화면 확인 
+
+
+- 게시글 리스트에서 게시글 제목 클릭했을때 넘어갈 수 있도록 링크를 수정 
+
+  list.jsp 
+
+  <a href="<%=request.getContextPath()%>/board/detail?bd_num=${board.bd_num}">
+
 
 - 컨트롤러에서 해당 메소드 처리하는 코드 등록 및 구현
 
+  	@RequestMapping(value="/board/detail", method=RequestMethod.GET)
+  	public ModelAndView boardDetailGet(ModelAndView mv, Integer bd_num) {	
+  		System.out.println(bd_num);
+  		mv.setViewName("/board/detail");
+  		return mv;
+  	}
+  콘솔에 번호가 찍히는지 확인 후 sysout 지우고 
+
 - 서비스/서비스 임플에서 메소드 등록 및 구현 
 
+  @RequestMapping(value="/board/detail", method=RequestMethod.GET)
+
+  	public ModelAndView boardDetailGet(ModelAndView mv, Integer bd_num) {	
+  		BoardVO board = boardService.getBoardList(bd_num);
+  		//확인
+  		System.out.println(board);
+  		//확인한 값을 화면에 전달 
+  		mv.addObject("board",board);
+  		mv.setViewName("/board/detail");
+  		return mv;
+  	}
+  서비스에게 일을 시킨다 입력과 출력을 확인 
+
+  마우스 호버 create 저장 후 임플로 가서 코드 입력 
+
+  	@Override
+  	public BoardVO getBoardList(Integer bd_num) {
+  		if(bd_num == null || bd_num <= 0)
+  		return null;
+  		
+  		return boardDao.selectBoard(bd_num); 
+  	}
+  마우스호버 후 create 
+
+  ​
+
 - 다오/매퍼에서 메소드 등록 및 구현 
+
+  : 이미 만들어져있는걸 사용할때는 다오/매퍼가 생략될 수 있다
+
+  ​
+
+  @Param("bd_num")추가 
+
+  BoardVO selectBoard(@Param("bd_num")Integer bd_num);
+
+  ​
+
+  다오 메소드에 리턴타입이 있으면 매퍼에 select문으로 만들어 줌 
+
+  예) BoardVO면 select
+
+  다오 메소드에 리턴타입이 없거나(void) 또는 int이면 update, insert, delete문으로
+
+  만듬. 단, int라고 해서 무조건은 아님.
+
+  <select id="selectBoard" resultType="spring.green.green.vo.BoardVO">
+
+  ```
+  select * from board where bd_num = #{bd_num} and bd_del = 'N'
+  </select>
+  ```
+  detail.jsp에서 확인
+
+  <body>
+  ${board}
+  </body>
 
 - 게시글 상세 화면 구현 
 
   ​
+
+15. ### 게시글 등록
+
+    - /board/register
+
+    - 게시글 리스트에서 게시글 등록 버튼을 추가 
+
+      - 등록 버튼 클릭하면 /board/register로 이동 
+
+    - 게시글 등록 화면 구현(get)
+
+      - 컨트롤러에 해당 URL을 담당하는 메소드 등록 및 코드 구현
+
+      - 기본 등록화면 jsp생성
+
+      - 게시글 등록 화면 구현
+
+        : form태크 이용하고 method는 post로 
+
+    - 게시글 등록 기능 구현(post)
+
+      - 테스트 시 로그인을 꼭 해야 테스트 가능 
+
+      - 컨트롤러에 게시글 등록하는 메소드 등록 및 코드 구현 
+
+        - 게시글 등록 후 완료되면 /board/list로 이동하도록 처리
+
+        @RequestMapping(value="/board/register", method=RequestMethod.POST)
+
+        	public ModelAndView boardRegisterPOST(ModelAndView mv) {	
+        		mv.setViewName("redirect:/board/list");
+        		return mv;
+        	}
+        redirect를 넣어줘야 게시글이 등록이 저장됨 
+
+        - 화면에서 입력한 게시글이 오는지 확인
+
+        @RequestMapping(value="/board/register", method=RequestMethod.POST)
+
+        	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVO board) {	
+        		System.out.println(board);
+        		mv.setViewName("redirect:/board/list");
+        		return mv;
+        	}
+        register.jsp에 제목과 내용 name지정을 안하면 null이 콘솔창에 뜸 
+
+        - 로그인한 사용자 정보를 확인
+
+        @RequestMapping(value="/board/register", method=RequestMethod.POST)
+
+        	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVO board, HttpServletRequest request) {	
+        		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+        		System.out.println(user);
+        		mv.setViewName("redirect:/board/list");
+        		return mv;
+        	}
+        - 서비스에게 일을 시킴
+
+        @RequestMapping(value="/board/register", method=RequestMethod.POST)
+
+        	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVO board, HttpServletRequest request) {	
+        		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+        		//나중 공지사항 위해서 
+        		board.setBd_type("일반");
+        		boardService.registerBoard(board, user); 
+        		mv.setViewName("redirect:/board/list");
+        		return mv;
+        	}@RequestMapping(value="/board/register", method=RequestMethod.POST)
+        서비스/ 서비스 임플에 메소드 등록 및 구현
+
+        - 게시글 제목이 있는지 확인
+
+      - 다오/매퍼에 메소드 등록 및 쿼리 구현
+
+        - insert문을 이용
+
+16. ### 게시글 수정
+
+    - /board/modify
+
+    - 게시글 상세에서 게시글 수정 버튼을 추가 
+
+      작성자와 로그인한 유저가 같은 경우만 보이도록 작성
+
+    - 게시글 수정화면(get)
+
+      - 컨트롤러에 메소드 등록 및 코드 구현
+
+      - 게시글 수정 화면 jsp 생성
+
+      - 컨트롤러에서 수정할 게시글 번호 확인
+
+      - 서비스에게 게시글 가져오라고 시킴
+
+      - 가져온 게시글 정보를 게시글 수정화면에 출력 
+
+        form tag이용 method는 post
+
+    - 게시글 수정 기능 구현 (post)
+
+      - 컨트롤러에서 메소드 등록 및 코드 구현 
+
+        - 수정을 다하면 게시글 상세로 이동 
+        - 수정된 게시글 정보 확인
+        - 로그인한 회원 정보 확인
+        - 서비스에게 수정하라고 시킴 
+
+      - 서비스/서비스 임플에 메소드 등록 및 구현 
+
+        젭속한 회원이 작성자인지 확인하여 일치하면 게시글 수정
+
+      - 다오/매퍼에 메소드 등록 및 쿼리 구현
+
+        수정된 게시글 정보를 DB에 업데이트 
+
+    ​
 
 ### 에러가 나는 경우
 
