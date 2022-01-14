@@ -12,8 +12,6 @@
 
 //vo : value object 
 
-http://www.tomonari.co.kr/#a
-
 "browser setting: window > preferences > web browser > use external > chrome"
 
 server 항목을 볼 수 있게 (1server에 1 project)**  *localhost:8080/test1*
@@ -187,7 +185,7 @@ return "/main/home"; 수정해줌
 - getter/ setter &@toString 생성 
 
 
-- login.jsp : name 에 맞는 객체 이름으로 넣어주고 
+- member folder 생성 후 login.jsp : name 에 맞는 객체 이름으로 넣어주고 
 
 
 
@@ -198,7 +196,7 @@ return "/main/home"; 수정해줌
 
 ​                           MemberDAO memberDao; 
 
-​                        & @Service 추
+​                        & @Service 추가
 
 **서버를 재가동하여 에러가 안나는지 테스트** 
 
@@ -463,13 +461,13 @@ header.jsp에 링크 추가
 
 - 컨트롤러에서 해당 메소드 처리하는 코드 등록 및 구현
 
-  	@RequestMapping(value="/board/detail", method=RequestMethod.GET)
-  	public ModelAndView boardDetailGet(ModelAndView mv, Integer bd_num) {	
-  		System.out.println(bd_num);
-  		mv.setViewName("/board/detail");
-  		return mv;
-  	}
-  콘솔에 번호가 찍히는지 확인 후 sysout 지우고 
+   @RequestMapping(value="/board/detail", method=RequestMethod.GET)
+   	public ModelAndView boardDetailGet(ModelAndView mv, Integer bd_num) {	
+   		System.out.println(bd_num);
+   		mv.setViewName("/board/detail");
+   		return mv;
+   	}
+     콘솔에 번호가 찍히는지 확인 후 sysout 지우고 
 
 - 서비스/서비스 임플에서 메소드 등록 및 구현 
 
@@ -626,40 +624,85 @@ header.jsp에 링크 추가
 
       - 컨트롤러에서 수정할 게시글 번호 확인
 
+        이때, detail.jsp에 링크 주소에 번호가 있어야 한다 
+
+        <a href="<%=request.getContextPath()%>/board/modify?bd_num=${board.bd_num}">
+
+
       - 컨트롤러에서 회원정보 확인
-
       - 서비스에게 게시글 가져오라고 시킴
-
-      - 게시글이 있으면 수정화면으로 이동
-
+      - 게시글의 작성자와 회원  있으면 수정화면으로 이동
       - 게시글이 없으면 게시글 상세로 이동 
-
+    
+      @RequestMapping(value="/board/modify", method=RequestMethod.GET)
+    
+      	public ModelAndView boardModifyGet(ModelAndView mv, Integer bd_num, HttpServletRequest request) {
+      		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+      		BoardVO board = boardService.getBoard(bd_num); 
+      		//a != null && : 꼭 넣어줘야 함! 코드의 안정성을 높여준다
+      		//A가 거짓이면 B를 체크하지 않음! 없을시, nullpointexception이 뜬다 
+      		if(user != null && board != null &&
+      				user.getMe_id().equals(board.getBd_me_id())) {
+      			mv.addObject("board", board);
+      			mv.setViewName("/board/modify");
+      		}else {
+      			mv.addObject("bd_num", bd_num);
+      			mv.setViewName("redirect:/board/detail");
+      		}
+      		return mv;
+      	}
       - 가져온 게시글 정보를 게시글 수정화면에 출력 
-
-        form tag이용 method는 post
-
+    
+        modify.jsp: form tag이용 method는 post
+    
     - 게시글 수정 기능 구현 (post)
-
+    
+      	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
+      	public ModelAndView boardModifyPOST(ModelAndView mv, BoardVO board) {
+      		System.out.println(board);
+      		mv.setViewName("redirect:/board/detail");
+      		return mv;
+      	}	
+      modify.jsp 에서 
+    
+      <input type="hidden" name="bd_num" value="${board.bd_num}">
+    
+      ```
+      <button class="btn btn-outline-success col-12">등록</button>
+      ```
+    
       - 컨트롤러에서 메소드 등록 및 코드 구현 
-
+    
         - 수정을 다하면 게시글 상세로 이동 
         - 수정된 게시글 정보 확인
         - 로그인한 회원 정보 확인
         - 서비스에게 수정하라고 시킴 
-
+    
+        @RequestMapping(value="/board/modify", method=RequestMethod.POST)
+    
+        	public ModelAndView boardModifyPOST(ModelAndView mv, BoardVO board
+        			,HttpServletRequest request) {
+        		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+        		boardService.modifyBoard(board,user);
+        		mv.setViewName("redirect:/board/detail");
+        		return mv;
+        	}	
+    
       - 서비스/서비스 임플에 메소드 등록 및 구현 
-
+    
         젭속한 회원이 작성자인지 확인하여 일치하면 게시글 수정
-
+    
       - 다오/매퍼에 메소드 등록 및 쿼리 구현
-
+    
         수정된 게시글 정보를 DB에 업데이트 
-
+    
     ​
 
 ### 에러가 나는 경우
 
+"모르겠는 경우, 컨트롤러부터 코드에 sysout(1)부터 ... 한후 서비스 임플 -> mapper ->
 
+ DB 식으로 추적해봄"
 
 "오타후 수정하고나서도 작동에 안되면, 다시 이름을 바꿔서 (baseLayout F2 & tiles-def.xml)
 
