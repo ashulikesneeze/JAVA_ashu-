@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.spring.vo.BoardVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.MemberVO;
 
 public interface BoardDAO {
@@ -19,4 +20,11 @@ public interface BoardDAO {
 
 	void updateBoard(@Param("board")BoardVO dbBoard);
 
+	void insertFile(@Param("file")FileVO fileVo);
+
+	List<FileVO> selectFileList(@Param("bd_num")Integer bd_num);
+	
+	void deleteFile(@Param("fi_num")int fi_num); 
+
 }
+

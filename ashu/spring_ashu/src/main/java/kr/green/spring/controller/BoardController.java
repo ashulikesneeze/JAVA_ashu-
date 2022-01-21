@@ -1,18 +1,27 @@
 package kr.green.spring.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.http.HttpHeaders;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.service.BoardService;
 import kr.green.spring.service.BoardServiceImp;
+import kr.green.spring.utils.UploadFileUtils;
 import kr.green.spring.vo.BoardVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.MemberVO;
 
 ///게시글 url을 담당하는 컨트롤러. /board/xxx을 담당
@@ -39,13 +48,14 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, 
+			HttpServletRequest request, List<MultipartFile> files) throws Exception {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		board.setBd_me_id(user.getMe_id());
 		board.setBd_type("일반");
 		System.out.println(board);
-		boardService.registerBoard(board);
-		mv.setViewName("/board/register");
+		boardService.registerBoard(board, files);
+		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	
@@ -56,10 +66,12 @@ public class BoardController {
 		//System.out.println("게시글 번호 : " + bd_num);
 		//게시글 = boardService.게시글가져오기(게시글번호);
 		BoardVO board = boardService.getBoard(bd_num); 
+		List<FileVO> files = boardService.getFileList(bd_num);
 		//가져온 게시글 확인 
 		//System.out.println(board);
 		//화면에게 게시글을 전달 
 		mv.addObject("board", board);
+		mv.addObject("files", files);
 		return mv;
 	}
 	
@@ -94,6 +106,9 @@ public class BoardController {
 		if(board == null) {
 			mv.setViewName("redirect:/board/list");
 		}else {
+			//첨부파일 가져옴 
+			List<FileVO> fileList = boardService.getFileList(bd_num);
+			mv.addObject("fileList", fileList);
 			mv.addObject("board", board);
 			mv.setViewName("/board/modify");
 		}
@@ -101,15 +116,46 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board) {
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board,
+			List<MultipartFile> files, Integer [] fileNums) {
+		//기존 첨부파일 번호인 fileNums 확인
+		/*if(fileNums != null) {
+			for(Integer tmp : fileNums)
+				System.out.println(tmp);
+		}
+		*/
 		//화면에서 수정한 게시글 정보가 넘어오는지 확인 
-		System.out.println("게시글 : " + board);
+		//System.out.println("게시글 : " + board);
 		//다오에게 게시글 정보르 주면서 업데이트하라고 시킴 
 		//서비스.게시글업데이트(게시글정보)
-		boardService.updateBoard(board);
+		boardService.updateBoard(board, files, fileNums);
 		//게시글 번호를 넘겨줌 
 		mv.addObject("bd_num", board.getBd_num());
 		mv.setViewName("redirect:/board/detail");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    try{
+	        String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	        HttpHeaders headers = new HttpHeaders();
+	        in = new FileInputStream(uploadPath+fileName);
+
+	        fileName = fileName.substring(fileName.indexOf("_")+1);
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	        headers.add("Content-Disposition",  "attachment; filename=\"" 
+				+ new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+	        entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	        entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+	    }finally {
+	        in.close();
+	    }
+	    return entity;
 	}
 }

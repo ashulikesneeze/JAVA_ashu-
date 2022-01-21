@@ -180,6 +180,7 @@ return "/main/home"; 수정해줌
 
 
 - table을 보고 객체 만듬 private String me_id; 등등
+- pom.xml 에서 lombok 의존성 추가 후 VO 클래스가서 @Data 추가 
 
 
 - getter/ setter &@toString 생성 
@@ -301,7 +302,7 @@ DB에 샘플 데이트 추가
       }
       ```
 
-  - 화면에 input tag/textarea tag/select tag 등에 name을 MEmverVO의
+  - 화면에 input tag/textarea tag/select tag 등에 name을 MemberVO의
 
     매개변수와 같게 설정 
 
@@ -695,8 +696,384 @@ header.jsp에 링크 추가
       - 다오/매퍼에 메소드 등록 및 쿼리 구현
     
         수정된 게시글 정보를 DB에 업데이트 
-    
-    ​
+
+
+
+### 17. 게시글 삭제
+
+- /board/delete
+- 게시글 상세에서 삭제 버튼을 추가
+  - 작성자만 보이도록 작업
+  - 버튼을 클릭하면 삭제 링크로 이동하도록 작업
+  - 수정버튼 참고
+- 컨트롤러에서 메소드 등록 및 코드 구현
+  - get방식으로 등록
+  - 삭제를 다하면 /board/list로 이동
+  - 삭제할 게시글 번호를 확인
+  - 로그인한 회원을 확인
+  - 서비스에게 삭제하라고 시킴
+    - 필요한 매개변수 설정을 잘 해야함
+- 서비스/서비스 임플에 메소드 등록 및 구현
+  - 유효한 번호인지 확인
+    - 유효하지 않으면 삭제 종료
+  - 번호와 일치하는 게시글 가져옴
+  - 게시글이 없으면 삭제 종료
+  - 게시글이 있으면 게시글 작성자와 로그인한 회원 아이디가 같은지 확인
+    - 같으면 게시글 삭제
+    - 다오에게 해당 게시글의 bd_del 속성을 Y로 수정하라고 시킴
+- 다오/매퍼에 메소드 등록및 쿼리를 구현
+  - 다오에 메소드 등록 후 @Param
+  - update 쿼리문 작성
+
+
+
+
+**첨부파일 연동하기** : https://github.com/st8324/Docs >젤 밑 파일 업로드 기능추가
+
+register/ modify.jsp 파일 가서 enctype="multipart/form-data" 추가 
+
+controller가서 /register 파트에서 List<MultipartFile> files 추가
+
+utils 패키지생성 후 UploadFileUtils 클래스 생성 후 복붙 
+
+
+
+### 18. 첨부파일 추가
+
+- 기존 게시글에 첨부파일 등록하는 기능을 추가
+
+  - 업로드를 위한 의존성 추가. pom.xml
+
+    - ```
+      <dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.3.2</version>
+      </dependency>
+      ```
+
+  - servlet-context.xml에 업로드 크기 설정
+
+    - ```
+      <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+          <!-- 업로드 최대 크기 10Mb -->
+          <beans:property name="maxUploadSize" value="10485760"></beans:property>
+      </beans:bean>
+      ```
+
+  - 패키지 생성 및 UploadFileUtils 클래스 추가
+
+    - 기본패키지명.utils 패키지 생성
+
+    - ```
+      public class UploadFileUtils {
+      	public static String uploadFile(String uploadPath, String originalName, byte[] 	
+      			fileData)throws Exception{
+      		UUID uid = UUID.randomUUID();
+      		String savedName = uid.toString() +"_" + originalName;
+      		String savedPath = calcPath(uploadPath);
+      		File target = new File(uploadPath + savedPath, savedName);
+      		FileCopyUtils.copy(fileData, target);
+      		String uploadFileName = makeIcon(uploadPath, savedPath, savedName);
+      		return uploadFileName;
+      	}
+      	
+      	private static String calcPath(String uploadPath) {
+      		Calendar cal = Calendar.getInstance();
+      		
+      		String yearPath = File.separator+cal.get(Calendar.YEAR);
+      		String monthPath = yearPath + File.separator 
+                  + new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
+      		String datePath = monthPath + File.separator 
+                  + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+      		makeDir(uploadPath, yearPath, monthPath, datePath);
+      		
+      		return datePath;
+       
+      	}
+      	private static void makeDir(String uploadPath, String... paths) {
+      		if(new File(paths[paths.length-1]).exists())
+      			return;
+      		for(String path : paths) {
+      			File dirPath = new File(uploadPath + path);
+      			if( !dirPath.exists())
+      				dirPath.mkdir();
+      		}
+      	}
+      	private static String makeIcon(String uploadPath, String path, String fileName)
+              	throws Exception{
+      		String iconName = uploadPath + path + File.separator + fileName;
+      		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
+      	}
+      }
+      ```
+
+1. 게시글 등록할 때 첨부파일 기능 추가
+
+   - register.jsp에 form태그 속서으로 enctype을 추가하고 값을 설정
+
+     - `enctype="multipart/form-data"`
+
+     - ```
+       <form method="post" enctype="multipart/form-data">
+           <!-- 화면 구현부는 생략 -->
+       </form>
+       ```
+
+   - register.jsp에 첨부파일을 선택할 수 있도록, input태그를 추가
+
+     - `<input type="file" name="xxx">`
+
+     - ```
+       <div class="form-group">
+           <label>첨부파일</label>
+           <input type="file" class="form-control" name="files">
+           <input type="file" class="form-control" name="files">
+           <input type="file" class="form-control" name="files">
+       </div>
+       ```
+
+   - 컨트롤러에서 첨부파일을 받을 수 있도록 매개변수를 추가
+
+     - /board/regitser, post에 추가
+
+     - ```
+       //이름은 register.jsp에 있는 name과 일치해야 함
+       List<MutipartFile> files
+       ```
+
+   - 컨트롤러에서 서비스에게 시킨 게시글 등록 기능에 첨부파일을 추가
+
+   - 서비스에 게시글 등록 메소드를 수정. 첨부파일을 매개변수로 추가
+
+   - 서비스임플에 첨부파일을 매개변수로 추가
+
+   - 게시글을 등록하고 나서 등록된 게시글의 게시글 번호를 가져오도록 xml수정
+
+     - BoardMapper.xml에 다음 코드를 추가
+
+     - ```
+       <insert id="insertBoard" 
+       	useGeneratedKeys="true"
+           keyProperty="board.bd_num" 
+           parameterType="kr.green.green.vo.BoardVO">
+       ```
+
+     - keyProperty
+
+       - board : 다오에서 정한 이름. 다오에서 @Param("xxx") 이 부분에서 xxx에 해당
+       - bd_num: VO의 기본키 이름
+
+     - parameterType
+
+       - 현재 진행중인 프로젝트의 패키지명과 VO명을 가져오면 됨.
+
+   - 서비스 임플에 첨부파일 등록 기능
+
+     - 반복문을 이용하여 첨부파일이 있으면 서버에 업로드하고, 다오에게 첨부파일을 등록하도록 시킴
+     - 서비스임플에 첨부파일 경로를 멤버변수로 추가
+       - 실제 폴더 경로
+     - FileVO 생성
+       - 테이블 속성 이름과 vo 멤버 변수 이름을 일치시켜야 함
+       - 파일명, 경로파일명, 게시글 번호를 이용한 생성자 추가
+       - 기본생성자 추가(@NoArgsConstructor)
+
+   - 다오에 메소드 추가 및 매퍼에 쿼리문 추가
+
+     - 매퍼에 insert문
+     - 다오에 @Param 추가
+
+2. 게시글 확인할 때 첨부파일 목록을 확인하고 클릭시 다운기능 추가
+
+   - 컨트롤러에서 게시글 번호와 일치하는 첨부파일들을 가져오라고 서비스에게 시킴
+
+     - /board/detail
+     - 가져온 첨부파일들을 화면에 전송
+
+   - 서비스/서비스 임플에 메소드 추가 및 구현
+
+     - 게시글 번호가 유효하지 않으면 종료
+     - 다오에게 게시글 번호와 일치하는 첨부파일을 가져오라고 시킴
+
+   - 다오/매퍼에서 메소드 추가 및 쿼리문 구현
+
+     - 매퍼에 select문
+     - 다오에 @Param 추가
+
+   - detail.jsp에 첨부파일 내용을 뿌려줌
+
+     - a태그 이용
+     - `<c:forEach></c:forEach>` 이용
+     - 다운로드를 위해 링크 설정
+       - /board/download
+
+   - 컨트롤러에 다운로드를 위한 메소드 추가
+
+     - 샘플 코드 참고
+
+     - ```
+       @ResponseBody
+       @RequestMapping("/board/download")
+       public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+       	InputStream in = null;
+           ResponseEntity<byte[]> entity = null;
+           String uploadPath = "D:\\JAVA_JIK\\upload";
+           try{
+           	String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
+       	    HttpHeaders headers = new HttpHeaders();
+           	in = new FileInputStream(uploadPath+fileName);
+
+       		fileName = fileName.substring(fileName.indexOf("_")+1);
+       		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+       		headers.add("Content-Disposition",  "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+       	entity = new ResponseEntity<byte[]>	(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+       	}catch(Exception e) {
+       		e.printStackTrace();
+       		entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+       	}finally {
+       		in.close();
+       	}
+       	return entity;
+       }
+       ```
+
+3. 게시글 수정할 때 첨부파일 수정 기능 추가
+
+   - 컨트롤러에서 첨부파일을 가져옴
+     - /board/modify, GET
+     - 가져온 첨부파일을 화면에 전달
+   - modify.jsp에서 서버에서 보내준 첨부파일을 뿌려줌
+     - a태그 아님
+     - x버튼을 만듬(a태그로)
+       - 클릭하면 첨부파일 내용 사라지고, input태그 file 추가
+     - 첨부파일 번호를 input태그 hidden로 추가
+     - 남은 첨부파일 갯수만큼 input태그 file로 추가
+   - modify.jsp에 enctyp을 설정
+   - 컨트롤러에서 추가된 첨부파일과 기존 첨부파일 번호를 화면에서 받아옴
+     - /board/modify, POST
+     - 기존 첨부파일 번호들을 확인
+   - 컨트롤러에서 서비스에게 첨부파일들과 첨부파일 번호들을 같이 넘겨주면서 수정하라고 시킴
+   - 기존 서비스 메소드에 매개변수 추가
+   - 기존 서비스 임플 메소드에 매개변수 추가 후 첨부파일 수정 코드 구현
+     - fileNums에 없는 첨부파일들 삭제 후 DB에서 삭제처리
+       - DB에 삭제처리를 위해 다오에게 삭제하라고 요청
+   - 다오에 메소드 추가 및 매퍼에 쿼리문 구현
+     - 다오에 @Param추가
+     - 매퍼에 update문 추가
+     - selectFileList에 조건 추가
+       - 삭제되지 않은 첨부파일만 가져오도록 수정
+   - 서비스 임플에서 새로 추가된 첨부파일 등록
+
+4. 게시글 삭제할 때 첨부파일 삭제 기능 추가
+
+   - 서비스 임플에서 게시글 삭제 후 첨부파일도 삭제(게시글 삭제 방식에 따라 순서가 달라질 수 있다)
+
+
+
+### 19. 게시글에 페이지네이션 적용
+
+- [참고문서](https://github.com/st8324/Docs/blob/master/spring%20framework/Pagination.md)
+- pagination 패키지, Criteria 클래스, PageMaker 클래스 추가
+- /board/list에 매개변수로 Criteria 객체를 추가
+- 컨트롤러가 서비스에게 게시글 가져오라고 시킬 때 현재 페이지 정보도 같이 넘겨줌
+- 서비스에 있는 게시글 가져오는 메소드에 현재 페이지 정보를 매개변수로 추가
+- 서비스 임플에서 다오에게 현재 페이지 정보를 추가로 줌
+- 다오에 매개변수(현재페이지 정보)를 추가
+- 매퍼에 limit문 추가
+- 컨트롤러에서 서비스에게 총게시글(일반) 수를 알려달라고 시킴
+- 가져온 게시글 수와 설정한 한 페이지네이션의 페이지수, 매개변수로 전달받은 현재 페이지 정보를 이용하여 페이지 메이커를 만듬
+- 페이지 메이커를 화면에 전달
+- 서비스 /서비스 임플에 메소드 추가 및 구현
+- 서비스 임플에서 다오에게 type에 맞은 게시글 전체수를 가져오라고 시킴
+- 다오/매퍼에 메소드 등록 및 쿼리문 구현
+- select문을 이용
+- list.jsp에서 페이지메이커를 이용하여 출력함
+
+
+
+### 20. 게시글 검색 기능 적용
+
+- /board/list.jsp에 게시글 검색창 추가
+  - name 지정
+  - form태그
+- 매퍼에서 게시글 검색 시 검색어 반영되도록 조건 추가
+  - 조건은 게시글 제목에 검색어가 포함
+- /board/list.jsp에 페이지네이션 링크에 검색어 추가
+- Criteria 수정
+  - 멤버변수 search를 추가
+  - 생성자에 search를 초기화
+- 컨트롤러에서 총 게시글 수 가져올 때 현재 페이지 정보도 같이 넘겨줌
+- 서비스/서비스임플에서도 게시글 수 가져올 때 페이지 정보 같이 넘겨줌
+- 매퍼에 게시글수 가져오는 쿼리에 검색 조건을 추가
+- ​
+
+**summernote** : register.jsp <title> 위 
+
+```
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+```
+
+맨아래 </body>위
+
+<script>
+
+      $('[name=bd_contents]').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
+    </script>
+
+
+### 21. 답변 글쓰기
+
+- detail.jsp에 답변 버튼을 추가
+  - /board/register
+- 컨트롤러에서 bd_ori_num를 받아서 화면에 전달
+  - /board/reigster. GET
+- register.jsp에 답변에 넘겨준 bd_ori_num의 값을 hidden로 추가
+  - `<c:if>`를 이용하여 bd_ori_num이 null이 아닐때만 추가
+- 매퍼에 bd_ori_num가 0이 아닐때 쿼리를 추가
+  - insert문에. insertBoard
+- 매퍼에 정렬 방법을 수정
+  - select 문에. getBoardList
+- 게시글 리스트에서 답변처럼 보이게 수정
+  - /board/register.jsp
+- 게시글 상세에서 답변인 경우 답변 버튼을 제거
+
+### 21. 공지사항
+
+- Criteria에 멤버변수 type을 추가
+  - 생성자에 type을 "일반"으로 초기화
+- 컨트롤러/서비스/서비스임플/다오 수정
+  - /board/list. GET
+    - 게시글 가져오는 메소드에 매개변수 type을 제거
+    - 게시글 전체 갯수 가져오는 메소드에 매개변수 type을 제거
+  - /board/register. POST
+    - 게시글 타입을 제거
+- 매퍼 수정
+  - 게시글 가져오는 쿼리문에 type 대신 cri.type으로 수정
+  - 게시글 전체 갯수 가져오는 쿼리문에 type 대신 cri.type으로 수정
+- register.jsp 수정
+  - input태그 hidden으로 게시글 타입을 설정
+    - bd_type이 null이면 일반으로 값을 지정. 아니면 컨트롤러에서 넘겨 받은 값으로 지정
+- header.jsp에서 공지사항 링크 수정
+- list.jsp에서 글쓰기 버튼 링크 수정
+- 컨트롤러 수정
+  - /board/register. GET
+    - url로 전달한 bd_type을 매개변수로 추가
+    - 화면에 bd_type을 전달
+  - /board/register. POST
+    - 게시글 등록 후 리다이렉트 할 때 type값을 전달
+- list.jsp 수정
+  - 페이지 네이션 링크에 type을 추가
+  - 검색창 안에 input태그 hidden으로 type을 추가
+  - h1태그에서 게시글 부분 을 수정해서 공지사항/게시글이 보이도록 함
+- detail.jsp 수정
+  - 공지사항에는 답변이 불가능하도록
+
+
 
 ### 에러가 나는 경우
 

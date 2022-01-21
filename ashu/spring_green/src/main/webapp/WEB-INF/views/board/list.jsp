@@ -14,7 +14,19 @@
 </head>
 <body>
 <div class="container">
-  <h2>Contextual Classes</h2>
+		<c:if test="${pm.criteria.type != null && pm.criteria.type == '일반' }">
+			<h1>게시글</h1>
+		</c:if>
+		<c:if test="${pm.criteria.type != null && pm.criteria.type == '공지'}">
+			<h1>공지사항</h1>
+		</c:if>
+		<form class="input-group mb-3" action="<%=request.getContextPath()%>/board/list">
+		  <input type="text" class="form-control" name="search" placeholder="검색어를 입력하세요." value="${pm.criteria.search }">
+		  <div class="input-group-append">
+		    <button class="btn btn-success" type="submit">검색</button>
+		  </div>
+		  	<input type="hidden" name="type" value="${pm.criteria.type }">
+		</form>
   <table class="table table-hover table-success">
     <thead class="thead-dark">
    	  <tr>

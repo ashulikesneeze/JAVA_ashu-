@@ -64,3 +64,19 @@ select * from member;
 select * from board where bd_type = '일반' order by bd_num desc;
 
 select * from community.board;
+
+select * from community.member;
+
+select * from community.file;
+
+CREATE TABLE `community`.`comment` (
+  `co_num` INT NOT NULL AUTO_INCREMENT,
+  `co_bd_num` INT NOT NULL,
+  `co_me_id` VARCHAR(20) NOT NULL,
+  `co_reg_date` VARCHAR(45) NOT NULL DEFAULT 'now()',
+  `co_del` VARCHAR(2) NOT NULL DEFAULT 'N',
+  `co_ori_num` INT NOT NULL,
+  `co_contents` LONGTEXT NOT NULL,
+  PRIMARY KEY (`co_num`));
+
+
