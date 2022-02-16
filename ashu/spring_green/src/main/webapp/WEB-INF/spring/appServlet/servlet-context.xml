@@ -43,6 +43,9 @@
 	<beans:bean id="loginInterceptor" 
 	class="spring.green.green.interceptor.LoginInterceptor"></beans:bean>
 	
+	<beans:bean id="autoInterceptor" 
+	class="spring.green.green.interceptor.AutoInterceptor"></beans:bean>
+	
 	<interceptors>
 	    <interceptor>
 	        <mapping path="/login"/>
@@ -58,7 +61,12 @@
 			<mapping path="/board/register"/>
 			<mapping path="/board/modify"/>
 	        <mapping path="/board/delete"/>
+	        <mapping path="/mypage"/>
 	        <beans:ref bean="memberInterceptor"/>
+		</interceptor>
+		<interceptor>
+	        <mapping path="/**/"/>
+	        <beans:ref bean="autoInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

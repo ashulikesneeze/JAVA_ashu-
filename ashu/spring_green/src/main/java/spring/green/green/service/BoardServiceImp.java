@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.green.green.dao.BoardDAO;
+import spring.green.green.pagination.Criteria;
 import spring.green.green.utils.UploadFileUtils;
 import spring.green.green.vo.BoardVO;
 import spring.green.green.vo.FileVO;
+import spring.green.green.vo.LikesVO;
 import spring.green.green.vo.MemberVO;
 
 @Service
@@ -27,10 +29,17 @@ public class BoardServiceImp implements BoardService {
 	private FileVO tmpFileVo; 
 
 	@Override
-	public List<BoardVO> getBoardList(String bd_type) {
-		return boardDao.selectBoardList(bd_type);
+	public List<BoardVO> getBoardList(Criteria cri) {
+		return boardDao.selectBoardList(cri);
+	}
+	
+	@Override
+	public List<BoardVO> getBoardList(String string) {
+		
+		return null;
 	}
 
+	
 	@Override
 	public BoardVO getBoard(Integer bd_num) {
 		if(bd_num == null || bd_num <= 0)
@@ -48,11 +57,15 @@ public class BoardServiceImp implements BoardService {
 			return;
 		if(user.getMe_id()== null || user.getMe_id().trim().length()==0)
 			return;
+		if(!board.isAccessAuthority(user.getMe_authority()))
+			return;
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
 		
 		uploadFile(files, board.getBd_num());
 	}
+
+		
 
 	@Override
 	public void modifyBoard(BoardVO board, MemberVO user , 
@@ -154,5 +167,58 @@ public class BoardServiceImp implements BoardService {
 			}
 		}
 	}
-	
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return boardDao.selectBoardCount(cri);
+	}
+
+	@Override
+	public void updateViews(Integer bd_num) {
+		if(bd_num == null || bd_num <= 0)
+			return;
+		boardDao.updateViews(bd_num); 
+	}
+
+	@Override
+	public String likes(LikesVO likes, MemberVO user) {
+		if(likes == null || user == null)
+		return "";
+		if(likes.getLi_me_id() == null || !likes.getLi_me_id().equals(user.getMe_id()))
+			return "";
+		//아이디와 게시글 번호랑 일치하는 추천/비추천이 DB에 없는 경우 
+		LikesVO dbLikes = boardDao.selectLikes(likes);
+		//처음 추천/비추천 한 경우
+		if(dbLikes == null) {
+			// => DB에 추가
+			boardDao.insertLikes(likes);
+			//추천 상태를 리턴
+			return ""+likes.getLi_state(); 
+		}
+		//처음이 아닌 경우 => DB에 수정 
+		else {
+			if(dbLikes.getLi_state() == likes.getLi_state()) {
+				dbLikes.setLi_state(0);
+			}
+			//기존에 눌렀던 추천/비추천과 반대되는 경우, 취소했다가 다시 누른 경우
+			else {
+				dbLikes.setLi_state(likes.getLi_state());
+			}
+			boardDao.updateLikes(dbLikes);
+		}
+		return ""+dbLikes.getLi_state(); 
+	}
+
+	@Override
+	public String views(LikesVO likes, MemberVO user) {
+		if(likes == null || user == null)
+		return "0";
+		likes.setLi_me_id(user.getMe_id());
+		LikesVO dbLikes = boardDao.selectLikes(likes);
+		if(dbLikes == null)
+			return "0";
+		return "" + dbLikes.getLi_state(); 
+	}
+
+
 }

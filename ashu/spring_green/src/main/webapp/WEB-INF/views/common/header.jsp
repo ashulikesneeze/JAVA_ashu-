@@ -27,7 +27,15 @@
       	</c:if>
       	<c:if test="${user != null }">
 	      	<li class="nav-item">
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/mypage">마이페이지</a>
+	      	</li> 
+	      	<li class="nav-item">
 	        	<a class="nav-link" href="<%=request.getContextPath()%>/logout">로그아웃</a>
+	      	</li> 
+      	</c:if>   
+      	<c:if test="${user != null && user.me_authority == '슈퍼 관리자' }">
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="<%=request.getContextPath()%>/admin/member/modify">회원관리</a>
 	      	</li> 
       	</c:if>   
     	</ul>

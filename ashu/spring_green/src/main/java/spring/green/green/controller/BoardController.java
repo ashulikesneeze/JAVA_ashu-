@@ -2,7 +2,9 @@ package spring.green.green.controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,15 +15,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.green.green.pagination.Criteria;
+import spring.green.green.pagination.PageMaker;
 import spring.green.green.service.BoardService;
 import spring.green.green.vo.BoardVO;
 import spring.green.green.vo.FileVO;
+import spring.green.green.vo.LikesVO;
 import spring.green.green.vo.MemberVO;
 
 @Controller
@@ -33,11 +39,19 @@ public class BoardController {
 	String uploadPath = "D:\\JAVA_ashu\\upload"; 
 	
 	@RequestMapping(value="/board/list", method=RequestMethod.GET)
-	//@RequestMapping(value="/board/list")
-	public ModelAndView boardListGet(ModelAndView mv) {
-		List<BoardVO> list = boardService.getBoardList("일반"); 
-		//System.out.println(list);
-		mv.addObject("list", list); 
+	public ModelAndView boardListGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(4);
+		List<BoardVO> list = boardService.getBoardList(cri);
+		
+		int totalCount = boardService.getTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		
+		
+		
+		
+		
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
 		mv.setViewName("/board/list");
 		return mv;
 	}
@@ -48,6 +62,7 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(bd_num);
 		//여러개를 가져 와야하기 때문에 List
 		List<FileVO> fileList = boardService.getFileList(bd_num);
+		boardService.updateViews(bd_num); 
 		//확인한 값을 화면에 전달 
 		mv.addObject("board",board);
 		mv.addObject("fileList",fileList);
@@ -56,18 +71,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/register", method=RequestMethod.GET)
-	public ModelAndView boardRegisterGet(ModelAndView mv) {	
+	public ModelAndView boardRegisterGet(ModelAndView mv, BoardVO board) {	
+		mv.addObject("board",board);
 		mv.setViewName("/board/register");
 		return mv;
 	}
 	
 	@RequestMapping(value="/board/register", method=RequestMethod.POST)
-	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVO board,
-			HttpServletRequest request, List<MultipartFile> files) {	
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, 
+			HttpServletRequest request, List<MultipartFile> files2) {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		//나중 공지사항 위해서 
-		board.setBd_type("일반");
-		boardService.registerBoard(board, user, files); 
+		boardService.registerBoard(board, user, files2);
+		mv.addObject("type",board.getBd_type());
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -128,7 +143,7 @@ public class BoardController {
 		mv.setViewName("redirect:/board/detail");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="/board/delete", method=RequestMethod.GET)
 	public ModelAndView boardDeleteGet(ModelAndView mv,Integer bd_num, 
 		HttpServletRequest request) {
@@ -136,5 +151,21 @@ public class BoardController {
 		boardService.deleteBoard(bd_num, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value="/board/likes")
+	public String boardLikes(@RequestBody LikesVO likes,
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		return boardService.likes(likes, user);
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value="/board/likes/views")
+	public String boardLikesViews(@RequestBody LikesVO likes,
+			HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		return boardService.views(likes, user);
 	}
 }

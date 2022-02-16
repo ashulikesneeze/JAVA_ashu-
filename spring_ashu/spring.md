@@ -150,9 +150,13 @@ return "/main/home"; 수정해줌
 
 - src/main/resources에서 mappers 폴더 생성 
 
-  MemberMapper.xml 파일 생성 후 MyBatis 연동 확인하기 밑 코드 복 붙 후 
+  MemberMapper.xml 파일 생성 후 
+
+- root-context.xml에서 Mapper 설정 예시 코드 복붙 후 
 
   <mybatis-spring:scan base-package="kr.green.test1.dao"/>
+
+- MyBatis 연동 확인하기 밑 코드 복 붙 후
 
   이름 바꾸고 <select> email 부분 지워주기 
 
@@ -180,7 +184,14 @@ return "/main/home"; 수정해줌
 
 
 - table을 보고 객체 만듬 private String me_id; 등등
+
 - pom.xml 에서 lombok 의존성 추가 후 VO 클래스가서 @Data 추가 
+
+    <dependency>
+    		  <groupId>org.projectlombok</groupId>
+    		  <artifactId>lombok</artifactId>
+    		  <version>1.18.22</version>
+    		</dependency>
 
 
 - getter/ setter &@toString 생성 
@@ -338,13 +349,16 @@ DB에 샘플 데이트 추가
 
 #### 로그인 기능 구현(Interceptor를 이용하여 로그인 유지 적용)
 
-https://github.com/st8324/Docs/blob/master/spring%20framework/Interceptor%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EC%9C%A0%EC%A0%80%20%EC%A0%95%EB%B3%B4%20%EC%84%B8%EC%85%98%EC%97%90%20%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0.md
+
+
+* [Docs/Interceptor를 이용한 유저 정보 세션에 저장하기.md at master · st8324/Docs · GitHub](https://github.com/st8324/Docs/blob/master/spring%20framework/Interceptor%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EC%9C%A0%EC%A0%80%20%EC%A0%95%EB%B3%B4%20%EC%84%B8%EC%85%98%EC%97%90%20%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0.md)
+
 
 * servlet-context 
 
     <mapping path="/login"/>
 
-header.jsp에 링크 추가 
+[header.]()jsp에 링크 추가 
 
 컨트롤러에서 메소드 추가 및 구현 
 
@@ -1005,56 +1019,49 @@ utils 패키지생성 후 UploadFileUtils 클래스 생성 후 복붙
 - 컨트롤러에서 총 게시글 수 가져올 때 현재 페이지 정보도 같이 넘겨줌
 - 서비스/서비스임플에서도 게시글 수 가져올 때 페이지 정보 같이 넘겨줌
 - 매퍼에 게시글수 가져오는 쿼리에 검색 조건을 추가
-- ​
 
-**summernote** : register.jsp <title> 위 
-
-```
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-```
-
-맨아래 </body>위
-
-<script>
-
-      $('[name=bd_contents]').summernote({
-        placeholder: 'Hello Bootstrap 4',
-        tabsize: 2,
-        height: 100
-      });
-    </script>
+  ​
 
 
 ### 21. 답변 글쓰기
 
 - detail.jsp에 답변 버튼을 추가
   - /board/register
+
 - 컨트롤러에서 bd_ori_num를 받아서 화면에 전달
   - /board/reigster. GET
+
 - register.jsp에 답변에 넘겨준 bd_ori_num의 값을 hidden로 추가
   - `<c:if>`를 이용하여 bd_ori_num이 null이 아닐때만 추가
+
 - 매퍼에 bd_ori_num가 0이 아닐때 쿼리를 추가
   - insert문에. insertBoard
+
 - 매퍼에 정렬 방법을 수정
   - select 문에. getBoardList
+
 - 게시글 리스트에서 답변처럼 보이게 수정
   - /board/register.jsp
+
 - 게시글 상세에서 답변인 경우 답변 버튼을 제거
 
-### 21. 공지사항
+  ​
+
+### 22. 공지사항
+
+- header.jsp에서 공지사항 링크 수정 또는 추가
 
 - Criteria에 멤버변수 type을 추가
   - 생성자에 type을 "일반"으로 초기화
-- 컨트롤러/서비스/서비스임플/다오 수정
+- 컨트롤러/서비스/서비스임플/다오 수정(-)change 
   - /board/list. GET
     - 게시글 가져오는 메소드에 매개변수 type을 제거
     - 게시글 전체 갯수 가져오는 메소드에 매개변수 type을 제거
   - /board/register. POST
     - 게시글 타입을 제거
 - 매퍼 수정
-  - 게시글 가져오는 쿼리문에 type 대신 cri.type으로 수정
-  - 게시글 전체 갯수 가져오는 쿼리문에 type 대신 cri.type으로 수정
+  - 게시글 가져오는 쿼리문(selectBoardList)에 type 대신 cri.type으로 수정
+  - 게시글 전체 갯수 가져오는 쿼리문(selectBoardCount)에 type 대신 cri.type으로 수정
 - register.jsp 수정
   - input태그 hidden으로 게시글 타입을 설정
     - bd_type이 null이면 일반으로 값을 지정. 아니면 컨트롤러에서 넘겨 받은 값으로 지정
@@ -1066,12 +1073,452 @@ utils 패키지생성 후 UploadFileUtils 클래스 생성 후 복붙
     - 화면에 bd_type을 전달
   - /board/register. POST
     - 게시글 등록 후 리다이렉트 할 때 type값을 전달
+
+      mv.addObject("type",) 
 - list.jsp 수정
   - 페이지 네이션 링크에 type을 추가
   - 검색창 안에 input태그 hidden으로 type을 추가
   - h1태그에서 게시글 부분 을 수정해서 공지사항/게시글이 보이도록 함
 - detail.jsp 수정
   - 공지사항에는 답변이 불가능하도록
+  - ${board.typeTitle} 하고 밑에 추가 &&(board.bd_type)...
+  - <c:if>...등록버튼
+
+
+### 23. 공지사항을 관리자만 작성할수 있게 작업
+
+- member테이블에 me_authority 속성을 추가
+  - 기본값은 회원. 슈퍼관리자/관리자/회원
+- member 테이블 데이터에서 가입된 회원 중 몇몇을 관리자로 설정
+- MemberVO에 me_authority 멤버변수 추가
+- 컨트롤러에서 공지사항을 등록/수정/삭제할 때 관리자인지 확인하도록 수정
+  - 상황에 따라선 서비스/서비스임플에 수정해도 됨
+  - 아래 수정되는 위치는 변경될 수 있음
+  - /board/register. POST
+  - /board/delete. GET
+
+### 24. 조회수 추가
+
+- board 테이블에 조회수 속성을 추가
+  - bd_views
+  - 정수. 기본값으로 0. NOT NULL
+- BoardVO에 멤버변수 bd_views추가
+- 게시글 상세를 들어갈때마다 조회수를 증가하도록 추가
+  - 컨트롤러/서비스/서비스임플/다오/매퍼에 추가
+- list.jsp에 조회수 확인하는 부분 추가 
+
+
+
+### 24. 써머노트 에디터 적용
+
+- [써머노트 홈페이지링크](https://summernote.org/)
+
+- Getting started 에서 부트스트랩4용 써머노트 js와 css 연결
+
+  - [참고링크](https://summernote.org/getting-started/#for-bootstrap-4)
+
+  - ```
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    ```
+
+    ​
+
+- register.jsp와 modify.jsp에 샘플코드 추가 후 선택자 수정
+
+- 첨부파일 name 수정
+
+  - files가 아니도록 수정
+  - 써머노트에서 이미지 추가하는 input태그 name files이기 때문에
+
+- 위에서 name을 수정하기 때문에 컨트롤러에서 매개변수 이름 수정
+
+  - /board/register. POST
+  - /board/modify. POST
+
+- detail.jsp에 내용 출력하는 부분을 textarea태그 아닌 div태그로 수정후, min-height와 heigtht값을 설정
+
+### 25. 아이디 중복확인
+
+- ajax를 사용하기 위한 의존성 추가
+  - [참고문서](https://github.com/st8324/Docs/blob/master/spring%20framework/%EC%9E%84%EC%8B%9C%20ajax%20%EC%83%98%ED%94%8C.md)
+  - 버전확인
+    - jackson-mapper-asl : 1.9.13
+    - jackson-databind : 2.13.1
+- signup.jsp
+  - 아이디 중복확인 버튼을 추가
+    - 아이디 지정
+    - type은 button. type 지정을 안하면 회원가입진행이 되기 때문에.
+  - 아이디 중복확인 버튼 클릭이벤트 등록
+    - 등록되는지 콘솔에 확인
+    - 입력한 아이디 값 확인
+    - ajax를 이용하여 중복확인하는 코드를 작성
+      - 입력한 아이디를 서버에 전달
+      - get
+      - 처리 결과를 알림창으로 알려줌
+  - 회원 가입버튼 클릭시 아이디 중복체크를 했는지 판단하여 회원가입을 진행해야함
+  - 아이디가 변경되면 중복확인 다시하도록 처리
+    - 아이디 부분에 change 이벤트를 등록
+      - 중복체크 다시하도록 작성
+- HomeContoller
+  - 아이디 중복확인 하는 메소드 추가
+    - @RequestMapping, @ResponseBody
+    - GET
+    - 아이디를 넘겨 받아서 서비스에게 전달
+      - 아이디가 있으면 "false"문자열을 전달하고, 없으면 "true" 문자열을 전달하도록 서비스에게 시킴
+- MemberService/MemberServiceImp
+  - 메소드 추가
+  - Imp
+    - 다오에게 아이디 주면서 회원 정보 가져오라고 시킴
+    - 가져온 회원정보가 있으면 "false"를 없으면 "true"를 반환
+
+### 26. 댓글 달기
+
+- comment 테이블 생성
+- CommentVO 추가
+- CommentController 추가
+  - @RestController
+- CommentService, CommentServiceImp, CommentDAO, CommentMapper 생성
+
+1. 댓글 등록 기능
+
+   - 화면 구성(detail.jsp)
+
+     - 댓글 입력할 수 있는 textarea와 등록버튼을 추가
+     - form태그로 감싸지 않음(ajax로 할거라서)
+
+   - 댓글 등록 기능
+
+     - 등록 버튼 이벤트 추가(detail.jsp)
+       - 등록 버튼 클릭 시 동작하는지 확인
+       - 로그인한 아이디 확인
+       - 로그인 안햇으면 등록 안되게 처리
+       - 입력한 댓글 가져오기
+       - 게시글 번호 가져오기
+       - 가져온 댓글, 게시글 번호를 ajax로 서버에 전송
+         - post
+     - 서버에서 등록 처리
+       - Controller 메소드 추가
+         - 넘겨받은 게시글 번호, 댓글 확인
+         - 로그인한 회원 정보 확인
+         - 서비스에게 게시글 번호, 댓글, 회원정보 주면서 등록하라고 시킴
+         - 등록 결과를 화면에 전송
+
+   - controller로 가서 
+
+     @RequestMapping("/comment/insert")
+     public boolean commentInsert(@RequestBody CommentVO comment) {
+     Sysout(comment);
+     return false; 
+
+     회원정보 가져오기 
+     @RequestMapping("/comment/insert")
+     public boolean commentInsert(@RequestBody CommentVO comment, Http request) {
+     MemberVO user = (.....
+     Sysout(comment);
+     return false; 
+
+     - Service/ServiceImp 메소드 추가
+       - 회원 정보가 없거나 댓글 정보가 없으면 실패를 알림
+       - 댓글 작성자에 회워 아이디를 넣음
+       - 다오에게 댓글 정보를 주면서 DB에 추가하라고 시킴
+     - Dao/Mapper 메소드 추가
+       - Dao에 @Param 추가
+       - Mapper에 insert문 구현
+
+     다오한테 일시키기
+     @RequestMapping("/comment/insert")
+     public boolean commentInsert(@RequestBody CommentVO comment, Http request) {
+     MemberVO user = (.....
+     Sysout(comment);
+     return commentService.insertComment(comment, user); 
+     }
+     }
+
+     imp
+
+     if(comment == null || user == null) 
+     return false;
+     if(!comment.getCo_me_id().equals(user.getMe_id()))
+     return false; 
+
+     commentDao.insertComment(comment); 
+     return true; 
+
+     mapper
+     <insert id="insertComment">
+     insert into comment(co_bd_num, co_me_id, co_contents, co_ori_num)
+     select #{comment.co_bd_num}, #{comment.co_me_id}, #{comment.co_contents}, 
+             ifnull(max(co_num),0)+1 from comment
+     </insert>
+      workbench co_bd_num 확인 후 테스트 사이트에서 그리로 워크벤치로 다시 
+
+     detail.jsp 
+
+     function(res) {
+     if(res){
+     alert('댓글 등록이 완료 되었습니다.');
+     $(' .co_contents').val('');
+     }else{
+     alert('댓글 등록에 실패 했습니다.'); 
+
+     테스트 다시 
+
+     webapp>resources>js > javascript (comment.js) 
+
+     detail <title> 밑? <script... > 추가 
+
+     comment.js 후 다시 detail 
+     ajax 수정 /없애기 
+     다시 댓글 들어갔는지 확인하고 워크벤치에서 확인 깃확인 
+
+2.댓글 확인
+
+- 화면 구현(detail.jsp)
+  - 댓글들을 확인할 수 있게 샘플을 이용하여 댓글 화면 구성
+  - 샘플을 이용하여 댓글 페이지네이션 구성
+- 댓글 불러오기
+  - detail.jsp
+    - ajax를 이용하여 컨트롤러에 댓글리스트와 페이지네이션정보를 요청
+      - get 방식
+      - 게시글 번호와 페이지 번호를 넘겨줌
+      - 서버에서 보내준 댓글 리스트와 페이지네이션 정보를 화면에 배치
+  - 컨트롤러
+    - 게시글 번호 확인
+    - 페이지 번호 확인
+    - 한 페이지에 보이는 댓글 갯수 : X개, 한 페이지네이션에 페이지번호 갯수 : Y개로 설정
+      - X : 5개, Y : 5개로 설정
+    - 서비스에게 게시글 정보와 현재 페이지 정보를 넘겨 주면서 댓글 리스트 달라고 요청
+    - 가져온 댓글 리스트를 Map에 추가
+    - 서비스에게 게시글 정보를 주면서 전체 댓글 수를 요청
+    - 전체 댓글 수, 페이지갯수, 현재 페이지 정보를 이용하여 페이지메이커 생성 후 Map에 추가
+  - 서비스/서비스임플
+    - 게시글 정보와 현재 페이지 정보를 이용하여 댓글 리스트를 가져오는 메소드 추가
+      - 다오에게 게시글 정보와 현재 페이지 정보를 이용하여 댓글 리스트를 가져오라고 시킴
+    - 게시글 정보와 일치하는 댓글 갯수를 가져오는 메소드 추가
+      - 다오에게 게시글 정보와 일치하는 댓글 갯수를 가져오라고 시킴
+  - 다오/매퍼
+    - 다오
+      - 메소드 추가
+    - 매퍼
+      - 게시글 번호와 현재 페이지 정보를 이용하여 댓글 리스트 가져오는 쿼리문 작성
+      - 게시글 번호와 일치하는 게시글 수를 가져오는 쿼리문 작성
+
+
+3. 댓글 삭제
+
+- 삭제 기능 구현
+  - detail.jsp
+    - 삭제버튼 클릭 이벤트 등록
+      - 이벤트 동작 테스트
+      - 클릭한 버튼의 댓글 번호를 확인
+        - 삭제 버튼에 댓글 번호를 속성으로 추가
+        - data-num를 이용
+      - ajax를 이용하여 서버에 댓글 번호 전송
+        - get
+        - commentService에 delete 메소드 등록 후 호출
+        - 서버에서 보내준 결과 확인한 후 알림창 띄움
+        - 삭제에 성공하면 댓글 새로고침
+  - 컨트롤러
+    - 메소드 추가
+    - 화면에서 넘겨준 댓글 번호 확인
+    - 로그인한 회원 정보 확인
+    - 서비스에게 번호와 회원정보 주면서 삭제하라고 시킴
+    - 삭제 성공하면 true, 실패하면 false를 화면에 전달
+  - 서비스/서비스 임플
+    - 메소드 추가
+    - 예외처리
+      - 회원정보 없거나 번호가 잘못되면 false 리턴
+    - 댓글 번호와 일치하는 댓글 가져옴
+    - 댓글이 없거나, 작성자와 회원아이디가 다르면 false 리턴
+    - 아니면 다오에게 댓글 번호 전달하여 삭제 요청 후 true 리턴
+  - 다오/매퍼
+    - 메소드 추가
+    - update문을 이용하여 댓글을 삭제 처리
+
+4. 댓글 수정
+
+- 화면 구성(detail.jsp)
+  - 수정 버튼 클릭 이벤트 등록
+    - 이벤트 확인
+    - 수정 버튼을 누른 댓글의 내용 부분을 감추고 해당 위치에 textarea태그를 추가
+      - 기존 댓글 내용이 textarea태그에 들어가야 함
+    - 수정 버튼을 누른 댓글의 답글, 수정, 삭제 버튼을 감추고 댓글수정버튼 추가
+    - 주의사항
+      - 수정 버튼 클릭시 이전에 눌렸던 수정 버튼을 취소하는 작업이 필요
+- 수정 기능 구현
+  - 화면(datail.jsp)
+    - 댓글 수정 버튼 클릭 이벤트 등록
+      - 댓글 수정 버튼 클릭 이벤트 확인
+      - 수정할 댓글 번호 가져오기
+      - 수정할 댓글 내용 가져오기
+      - ajax를 이용하여 댓글 번호와 댓글 내용을 서버에 전송
+  - 컨트롤러
+    - 메소드 추가
+      - 화면에서 보내준 댓글 내용을 확인
+      - 로그인한 회원 정보 확인
+      - 서비스에게 댓글 정보와 회원 정보를 주면서 수정하라고 요청
+      - 수정에 성공하면 true, 실패하면 false를 리턴
+  - 서비스/임플
+    - 메소드 추가
+      - 회원정보가 없거나 댓글 정보가 없으면 false를 리턴
+      - 댓글 번호와 일치하는 댓글을 DB에서 가져와서 확인
+      - DB에서 가져온 댓글의 작성자와 로그인한 유저가 다르면 false를 리턴
+      - 같으면 다오에게 댓글 정보를 주면서 수정하라고 요청
+  - 다오/매퍼
+    - 메소드 추가/쿼리문 등록
+      - 댓글 내용을 수정하는 쿼리문 작성(update)
+
+5. 댓글의 답글 등록
+
+- 화면 구성(detail.jsp)
+  - 답글 버튼 클릭 이벤트 등록
+    - 답글 버튼 클릭 이벤트 동작 확인
+    - textarea 태그와 button 태그를 이용하여 화면 구성
+- 답글 기능 구현
+  - 화면(detail.jsp)
+    - 답글 등록 버튼 클릭 이벤트 등록
+      - 답글 등록 버튼 클릭 이벤트 동작 확인
+      - 답글하려는 댓글 번호 가져옴
+      - 답글 내용 가져옴
+      - 게시글 번호를 가져옴
+      - 답글 정보를 서버에 전송
+        - url : /comment/insert
+  - 매퍼
+    - co_ori_num이 0이면 기존 등록
+    - co_ori_num이 0이 아니면 쿼리문 추가
+
+### 27. 추천/비추천
+
+- 화면 구성(detail.jsp)
+
+  - 추천/비추천 버튼을 배치
+  - 버튼 클릭 이벤트를 등록
+    - 이벤트 작동 확인
+    - ajax를 이용하여 서버로 데이터 전송
+      - 아이디, 게시글 번호, 추천 상태
+
+- LikesVO를 추가
+
+- 컨트롤러에 ajax 동작 구현
+
+  - 메소드를 추가
+  - 매개변수 확인(화면에서 ajax로 넘겨준 데이터를 확인)
+  - 서비스에게 회원 정보, 추천 정보 주면서 DB에 추가하라고 시킴
+
+- 서비스/임플
+
+  - 이전 추천 정보가 없으면 DB에 추가
+  - 이전 추천 정보가 있으면 DB에 수정
+  - 최종 상태를 리턴
+
+
+
+- 다오/매퍼
+  - 추천 정보를 추가하는 쿼리문 작성
+  - 추천 정보를 수정하는 쿼리문 작성
+- 추천/비추천 했을 때 버튼에 표시
+  - 화면 로딩시, 추천/비추천 버튼 클릭 후 동작하는 함수 생성
+    - ajax로 서버에 게시글 번호를 넘겨줘서 해당 게시글에 맞는 추천/비추천 상태를 가져옴
+    - 0이면 버튼에 표시를 안하고, 1이면 추천버튼에 표시, -1이면 비추천 버튼에 표시
+
+### 28. 회원 정보 수정
+
+- 회원 정보 수정 조건
+  - 비번을 입력하지 않으면 기존 비번을 활용
+  - 주소를 입력하지 않으면 기존 주소를 활용
+  - 비번/주소를 입력하면 입력한 주소로 수정
+- 회원정보 수정 링크 추가(header.jsp)
+  - 로그인한 회원만 접근가능하도록 처리
+    - header.jsp에서 c:if태그를 이용
+    - servlet-context.xml에서 인터셉터에서 처리
+- 회원 정보 페이지에 접근 가능하도록 컨트롤러에서 메소드 등록(GET,POST를 같이 처리)
+- 회원정보 수정 페이지 생성 및 구현(/member/mypage.jsp)
+  - form태그 이용
+- 컨트롤러에서 생성 메소드에 화면에서 넘겨준 정보를 이용하여 회원 정보를 수정
+  - 비번이 비어 있으면 이전 비번으로 수정
+  - 비번이 있으면 암호화 하여 수정
+  - 주소가 없으면 이전 주소로 수정
+  - 권한은 이전 권한으로 수정
+
+### 29. 아이디 찾기
+
+- 로그인화면에서 아이비/비번찾기 버튼을 추가(링크)(/member/login.jsp)
+- 컨트롤러에 해당 URL 담당하는 메소드 추가
+- 아이디/비번찾기 화면을 구성
+  - 아이디 찾기를 클릭하면 아이디 찾을 수 있는 화면
+  - 비번 찾기를 클릭하면 비번을 찾을 수 있는 화면
+- 아이디 찾기 기능 구현
+  - 아이디 찾기 버튼 클릭 이벤트 등록
+    - 이벤트 확인
+    - 서버로 보내줄 데이터 확인
+      - 이메일, 이름
+    - ajax를 이용하여 서버로 데이터를 보냄
+    - 서버에서 보내준 정보를 이용하여 알림창으로 아이디 정보 출력
+  - 컨트롤러에서는 화면에서 보내준 정보를 이용하여 일치하는 회원의 아이디를 화면에 전송
+  - MemberVO에 me_email 추가
+
+### 30. 비번 찾기
+
+- 이메일로 비번을 보내는 방법으로 비번 찾기를 함
+- [참고문서]https://github.com/st8324/Docs/blob/master/spring%20framework/To%20do/%EB%A9%94%EC%9D%BC%EB%B3%B4%EB%82%B4%EA%B8%B0.md
+- 비밀번호 찾기 버튼 이벤트 등록
+  - 이벤트 확인
+  - 서버에 보낼 정보를 확인
+    - 아이다와 이메일
+  - ajax를 이용하여 정보를 서버에 전송
+  - 메일 전송이 완료되면 알림창을 띄움
+- 컨트롤러
+  - 화면에서 전송한 정보 확인
+  - 서비스에게 회원정보를 주면서 새비밀번호를 발급하도록 일을 시킴
+- 서비스/임플
+  - 회원 정보와 일치하는 회원이 있으면 새 비밀번호를 생성
+  - 새 비밀번호를 암호화하여 DB에 저장
+  - 새 비밀번호를 이메일로 전송
+
+### 31. 회원정보 권한 변경
+
+- 링크 추가(header.jsp)
+- 슈퍼 관리자만 회원 변경이 가능
+- 회원 등급변경화면을 생성(/admin/member/modify.jsp)
+  - tiles-def.xml에 수정
+  - jsp추가
+  - 컨트롤러에 메소드 추가
+  - 회원 정보 가져옴
+- 등급을 변경하면 ajax를 이용하여 회원 등급을 변경하도록 작성
+  - 권한이 변경 시 동작하는 이벤트를 등록
+    - 이벤트를 확인
+    - 서버에 전송할 정보를 확인
+    - 서버에 전송
+    - 서버에서 알려준 내용을 토대로 알림창을 띄움
+  - 컨트롤러에서 화면에서 보내준 내용을 확인
+  - 서비스에게 권한을 변경하라고 시킴
+
+### 32. 자동 로그인
+
+- MemberVO
+  - me_auto_login 멤버변수를 추가
+  - me_session_id, me_session_limit 추가
+- login.jsp
+  - 자동 로그인 체크박스 추가
+- Home컨트롤러
+  - 로그인 시도를 했을 때 LoginInterceptor에 로그인한 회원 정보 보내기전에 자동 로그인을 체크했는지 안했는지 여부도 같이 보냄
+  - 로그아웃 시도시
+    - 회원 정보에 있는 me_session_id에 none을 저장하고 me_session_limit에 로그아웃시간을 저장
+- LoginInterceptor 수정(이전 코드 참고)
+  - 로그인한 회원 정보가 있고, 자동 로그인이 체크 됐으면
+    - 쿠키를 생성하여 현재 세션 id값을 value로 넣어줌
+    - 쿠키의 유지시간을 1주일로 설정
+    - 생성된 쿠키를 response에 실어서 보냄
+- AutoLoingInterceptor 추가
+  - servlet-context.xml에 설정
+  - preHandle에서 자동 로그인 기능을 구현
+    - 쿠키 정보를 가져옴
+    - 쿠키가 있으면
+      - 쿠키 값을 가져와서 쿠키값과 일치하는 me_session_id를 가진 회원이 있으면 회원 정보를 가져옴
+      - 가져온 회원 정보를 세션에 저장
+
+### 33. 회원가입시 유효성 검사(정규표현식)
 
 
 
@@ -1159,66 +1606,31 @@ utils 패키지생성 후 UploadFileUtils 클래스 생성 후 복붙
    - 경우 : 컨트롤러에 URL 중 POST를 담당하는 메소드를 만들지 않은 경우
 
 
+9. 400 에러
 
+- 화면에서 서버로 데이터를 전송할 때 컨트롤러에서 화면에서 넘겨준 정보를 변환하지 못하는 경우 발생
+- 대표적으로 생일과 같이 날짜로 된 부분에서 흔하게 발생
+- 정수로 입력해야하는데 문자열로 입력하는 경우 발생
 
-
-controller 에서 loginGet을 되는지 안되는지 확인 
-
-- controller: 복붙후 GET을 POST로 바꿔주고 
-
-
-- @RequestMapping(value = "/login", method = RequestMethod.POST)
-
-  public ModelAndView loginPost(ModelAndView mv, MemberVO user) {
-  	System.out.println(user);
-  	mv.setViewName("/member/login");
-  	return mv;
-  }
-  "데이터를 전송하면 반드시 sysout으로 콘솔에서 확인" 
-
-sysout 지우고
-
-
-
-#### dao와 mapper.xml 맞춰줘야 함
-
-public interface MemberDAO {
-
-	MemberVO getMember(@Param("me_id")String me_id);
-}
-
-<mapper namespace="kr.green.test1.dao.MemberDAO">
-
-	<select id="getMember" resultType="kr.green.test1.vo.MemberVO">
-	select*from member where me_id = #{me_id}
-	</select>
-</mapper>
-
-확인위해 MemberServiceImp로 가서 sysout
-
-MemberVO dbUser = memberDao.getMember(user.getMe_id());
-
-	System.out.println(dbUser);
-	return null;
-
-
-
-
-
-- views>member폴더 생성후 login.jsp 생성 
-
-
-- views> layout> baseLayout.jps 에 <title> 밑에 bootstrap 4줄 복붙 
-
-
-
-
-
-"ctrl+ space는 자동 완성 코드"   
 
 "tiles 에서 에러가 날경우 페이지 거의 밑 쪽으로 가서 확인함"
 
 
+
+"Alt + F5 는 새로 고침"
+
+"ㅂ + 한자는 특수기호"
+
+"ctrl+ space는 자동 완성 코드"   
+
+
+
+# Ajax
+
+- 전체가 아닌 일부만 새로고침할 때 사용
+- 전체를 새로고침할 때 가져올 파일들이 많으면 느려짐
+- 이 때 새로고침할 부분이 전체에서 일부라면 전체 새로고침말고 부분 새로고침을 하는게 효율적이고 사용자 입장에서는 보기가 좋다
+- 이와같이 부분 새로고침할 때 사용하는 방법이 ajax이다.
 
 
 

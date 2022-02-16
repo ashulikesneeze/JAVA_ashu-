@@ -79,4 +79,8 @@ CREATE TABLE `community`.`comment` (
   `co_contents` LONGTEXT NOT NULL,
   PRIMARY KEY (`co_num`));
 
+select * from community.comment;
 
+select * from community.likes;
+
+select * from board left join (select * from likes) as l on bd_num = li_bd_num;

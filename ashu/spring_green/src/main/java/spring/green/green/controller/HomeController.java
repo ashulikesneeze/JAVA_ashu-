@@ -1,13 +1,20 @@
 package spring.green.green.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.green.green.service.MemberService;
@@ -54,20 +61,60 @@ public class HomeController {
 	public ModelAndView loginPost(ModelAndView mv, MemberVO user){
 		
 		MemberVO loginUser = memberService.login(user);
-		mv.addObject("user",loginUser);
 		if(loginUser == null)
 			mv.setViewName("redirect:/login");
-		else
+		else {
+			loginUser.setMe_auto_login(user.getMe_auto_login()); 
+			mv.addObject("user",loginUser);
 			mv.setViewName("redirect:/");	
+		}
 	    return mv;
 	}
 	
 	@RequestMapping(value= "/logout")
-	public ModelAndView logout(ModelAndView mv, HttpServletRequest r){
-			
-			r.getSession().removeAttribute("user");
-		mv.setViewName("redirect:/");
+	public ModelAndView logout(ModelAndView mv, HttpSession session){
+			MemberVO user = (MemberVO)session.getAttribute("user"); 
+			session.removeAttribute("user");
+			user.setMe_session_limit(new Date());
+			user.setMe_session_id("none");
+			memberService.insertAutoLogin(user); 
+			mv.setViewName("redirect:/");
 		    return mv;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value ="/idcheck")
+	public String idCheck(String me_id){
+	    return memberService.idCheck(me_id);
+	}
+	
+	@RequestMapping(value= "/mypage")
+	public ModelAndView mypage(ModelAndView mv, MemberVO inputUser
+			,HttpServletRequest request){
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		user = memberService.updateMember(inputUser, user);
+		if(user != null)
+			request.getSession().setAttribute("user", user);		
+		mv.setViewName("/member/mypage"); 
+		    return mv;
+	}
+
+	@RequestMapping(value="/member/find")
+	public ModelAndView memberFind(ModelAndView mv) {
+		mv.setViewName("/member/find");
+		return mv; 
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value="/member/find/id")
+	public String memberFindId(@RequestBody MemberVO member) {
+		return memberService.selectMemberByEmail(member); 
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value="/member/find/pw")
+	public String memberFindPw(@RequestBody MemberVO member) {
+		return memberService.sendPassword(member); 
+	}
 }

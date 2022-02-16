@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <title>게시글 수정</title>
 </head>
 <body>
@@ -42,5 +44,12 @@
 			});
 		});
 	</script>
+	<script>
+      $('[name=bd_contents]').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
+    </script>
 </body>
 </html>
